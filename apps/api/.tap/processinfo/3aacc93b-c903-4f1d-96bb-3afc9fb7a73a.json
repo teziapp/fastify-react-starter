@@ -1,0 +1,245 @@
+{
+  "date": "2024-05-21T13:24:47.957Z",
+  "argv": [
+    "/Users/krishna404/.nvm/versions/node/v20.10.0/bin/node",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api/src/app.test.ts"
+  ],
+  "execArgv": [
+    "--import=file:///Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@isaacs+ts-node-temp-fork-for-pr-2009@10.9.5_@types+node@20.12.12_typescript@5.2.2/node_modules/@isaacs/ts-node-temp-fork-for-pr-2009/import.mjs",
+    "--import=file:///Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/import.mjs",
+    "--enable-source-maps",
+    "--import=file:///Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+processinfo@3.1.7/node_modules/@tapjs/processinfo/dist/esm/import.mjs"
+  ],
+  "NODE_OPTIONS": "\"--import=file:///Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+processinfo@3.1.7/node_modules/@tapjs/processinfo/dist/esm/import.mjs\"",
+  "cwd": "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api",
+  "pid": 97820,
+  "ppid": 97718,
+  "parent": null,
+  "uuid": "3aacc93b-c903-4f1d-96bb-3afc9fb7a73a",
+  "files": [
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api/src/app.test.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/glob.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/has-magic.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/brace-expansion@2.0.1/node_modules/brace-expansion/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/assert-valid-pattern.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/ast.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/escape.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/unescape.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/path-scurry@1.11.1/node_modules/path-scurry/dist/esm/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/pattern.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/walker.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/brace-expressions.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/lru-cache@10.2.2/node_modules/lru-cache/dist/esm/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minipass@7.1.1/node_modules/minipass/dist/esm/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/ignore.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/processor.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/loader.mjs",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/hooks.mjs",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/mock-service-client.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/mock-service.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/is-relative-require.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/munge-mocks.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/resolve-mock-entry-point.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/service-key.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/export-line.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/commonjs/service-key.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/call-site-like.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-all-conditional-values.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/require-resolve.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-all-conditions.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-all-local-imports.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-all-exports.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-conditional-value.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-import.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-unique-condition-sets.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/is-windows.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/parse.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-conditional-values-list.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/errors.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/file-exists.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/find-dep-package.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/read-pkg.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/star-glob.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/to-file-url.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/to-path.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-named-exports-list.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-export.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-dependency-export.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-package-import.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/walk-up-path@3.0.1/node_modules/walk-up-path/dist/mjs/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/index.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/find-star-match.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/read-json.js",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api/src/app.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api/src/configs/env.config.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/packages/utils/index.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/packages/utils/constants/index.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/packages/utils/constants/environment.constant.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api/src/configs/logger.config.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api/src/trpcContext.ts",
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/apps/api/src/trpcRouter.ts"
+  ],
+  "sources": {
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/glob.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/src/glob.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/has-magic.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/src/has-magic.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/assert-valid-pattern.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/src/assert-valid-pattern.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/ast.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/src/ast.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/escape.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/src/escape.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/unescape.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/src/unescape.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/path-scurry@1.11.1/node_modules/path-scurry/dist/esm/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/path-scurry@1.11.1/node_modules/path-scurry/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/pattern.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/src/pattern.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/walker.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/src/walker.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/dist/mjs/brace-expressions.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minimatch@9.0.3/node_modules/minimatch/src/brace-expressions.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/lru-cache@10.2.2/node_modules/lru-cache/dist/esm/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/lru-cache@10.2.2/node_modules/lru-cache/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minipass@7.1.1/node_modules/minipass/dist/esm/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/minipass@7.1.1/node_modules/minipass/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/ignore.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/src/ignore.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/processor.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/src/processor.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/mock-service.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/src/mock-service.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/is-relative-require.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/is-relative-require.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/munge-mocks.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/src/munge-mocks.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/resolve-mock-entry-point.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/src/resolve-mock-entry-point.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/service-key.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/src/service-key.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/esm/export-line.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/src/export-line.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/dist/commonjs/service-key.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+mock@1.3.4_@tapjs+core@1.5.4/node_modules/@tapjs/mock/src/service-key-cjs.cts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/call-site-like.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/src/call-site-like.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-all-conditional-values.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/get-all-conditional-values.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/require-resolve.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/src/require-resolve.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-all-conditions.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/get-all-conditions.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-all-local-imports.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/resolve-all-local-imports.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-all-exports.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/resolve-all-exports.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-conditional-value.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/resolve-conditional-value.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-import.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/resolve-import.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-unique-condition-sets.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/get-unique-condition-sets.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/is-windows.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/is-windows.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/dist/esm/parse.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/@tapjs+stack@1.2.8/node_modules/@tapjs/stack/src/parse.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-conditional-values-list.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/get-conditional-values-list.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/errors.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/errors.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/file-exists.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/file-exists.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/find-dep-package.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/find-dep-package.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/read-pkg.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/read-pkg.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/star-glob.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/star-glob.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/to-file-url.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/to-file-url.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/to-path.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/to-path.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/get-named-exports-list.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/get-named-exports-list.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-export.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/resolve-export.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-dependency-export.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/resolve-dependency-export.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/resolve-package-import.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/resolve-package-import.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/walk-up-path@3.0.1/node_modules/walk-up-path/dist/mjs/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/walk-up-path@3.0.1/node_modules/walk-up-path/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/dist/esm/index.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/glob@10.3.15/node_modules/glob/src/index.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/find-star-match.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/find-star-match.ts"
+    ],
+    "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/dist/esm/read-json.js": [
+      "/Users/krishna404/codeProjects/teziapp/fastify-react-trpc-turbo/node_modules/.pnpm/resolve-import@1.4.5/node_modules/resolve-import/src/read-json.ts"
+    ]
+  },
+  "root": "3aacc93b-c903-4f1d-96bb-3afc9fb7a73a",
+  "externalID": "src/app.test.ts",
+  "code": 0,
+  "signal": null,
+  "runtime": 545.249042
+}

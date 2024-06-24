@@ -1,0 +1,29 @@
+{
+	"name": "@repo/utils",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": "./dist/index.js",
+		"./types": "./dist/types/index.d.ts"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc --declaration"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"react": "^18.2.0",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@swc/cli": "^0.3.12",
+		"@swc/core": "^1.5.25",
+		"@types/node": "^20.12.12",
+		"@types/react": "^18.2.66",
+		"typescript": "^5.4.5"
+	}
+}

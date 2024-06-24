@@ -1,0 +1,7 @@
+TAP version 14
+# Subtest: requests the "/" route
+    1..1
+    ok 1 - Backend is alive!
+ok 1 - requests the "/" route # time=16.315ms
+
+1..1
