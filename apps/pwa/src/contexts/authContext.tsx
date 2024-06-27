@@ -21,7 +21,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<SessionType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  console.log(session);
+
   const checkUser = async () => {
     const sessionDetails = sessionStorage.getItem("sessionDetails");
     try {
