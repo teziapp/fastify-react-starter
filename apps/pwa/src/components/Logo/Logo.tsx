@@ -29,7 +29,7 @@ export const Logo = ({
     <Link to={href || "#"} className="logo-link">
       <Flex gap={others.gap || "small"} align="center" {...others}>
         <img
-          src="favicon/android-chrome-512x512.png"
+          src="/favicon/android-chrome-512x512.png"
           alt="Tezi Logo"
           height={imgSize?.h || 48}
         />
@@ -51,23 +51,10 @@ export const Logo = ({
   ) : (
     <Flex gap={others.gap || "small"} align="center" {...others}>
       <img
-        src="/logo-no-background.png"
-        alt="design sparx logo"
+        src="/favicon/android-chrome-512x512.png"
+        alt="Tezi Logo"
         height={imgSize?.h || 48}
       />
-      <Typography.Title
-        level={4}
-        type="secondary"
-        style={{
-          color,
-          margin: 0,
-          padding: `4px 8px`,
-          backgroundColor: bgColor,
-          borderRadius,
-        }}
-      >
-        Tezi
-      </Typography.Title>
     </Flex>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Typography, Row } from "antd";
 import { useAuth } from "../../hooks/useAuth";
 
-export const Home: React.FC = () => {
+const Home: React.FC = () => {
   const { session, signIn } = useAuth();
   return (
     <div style={{ width: "100%", justifyContent: "center" }}>
@@ -33,3 +33,5 @@ export const Home: React.FC = () => {
     </div>
   );
 };
+
+export default Home;

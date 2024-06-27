@@ -1,6 +1,6 @@
 import { Button, Col, Row, Typography } from "antd";
 
-const Login = () => {
+const Register = () => {
   const handleGoogleAuth = () => {
     window.open(import.meta.env.VITE_BE_URL + "/auth/google", "_self");
   };
@@ -81,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

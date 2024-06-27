@@ -1,129 +1,145 @@
-import { PieChartOutlined } from "@ant-design/icons";
-import { Result } from "antd";
-import { FC, ReactNode, useEffect } from "react";
-import {
-  IndexRouteObject,
-  Navigate,
-  NonIndexRouteObject,
-  useLocation,
-} from "react-router-dom";
-import { BackBtn, RefreshBtn } from "tezi-antd-components";
-import { ErrorPage } from "../pages/Error.page";
-import { Login } from "../pages/auth/Login.page";
-import { useAuth } from "../hooks/useAuth";
-import AuthSuccess from "../pages/auth/Success.page";
-import ServiceWorkerUpdateDialog from "../components/ServiceWorkerUpdate";
-import { DashboardLayout } from "../layouts/dashboards";
+import { lazy, ComponentType, ReactNode } from "react";
+import { Navigate, useLocation, useRoutes } from "react-router-dom";
+import SuspenseAndErrorBoundary from "../utils/SuspenseAndErrorBoundary";
+import LoadingScreen from "../components/LoadingScreen";
+import SvgIconStyle from "../components/SvgIconStyle";
+import { Button, Result } from "antd";
 
-// Custom scroll restoration function
-export const ScrollToTop: FC = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    }); // Scroll to the top when the location changes
-  }, [pathname]);
-
-  return null; // This component doesn't render anything
-};
-
-type PageProps = {
-  component: ReactNode;
-};
-const PageWrapper = ({ component }: PageProps) => {
-  const { loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>; // Or your loading component
-  }
-
-  return (
-    <>
-      <ScrollToTop />
-      <ServiceWorkerUpdateDialog />
-      {component}
-    </>
-  );
-};
-
-type NavbarFields = {
-  navLabel?: string;
-  navPath?: string; // needed when the actual path has urlParams
-  icon?: ReactNode;
-  subheader?: string;
+// Updated RouteObject interface
+interface RouteObject {
   title?: string;
+  path: string;
+  element: ReactNode;
+  icon?: ReactNode;
+  toolTip?: string;
+  navbarPath?: boolean;
+  children?: Record<string, RouteObject> | RouteObject[];
+  index?: boolean;
+  items?: RouteObject[]; // Add this line
+}
+
+const getIcon = (name: string): ReactNode => (
+  <SvgIconStyle src={`/icons/${name}.svg`} style={{ width: 1, height: 1 }} />
+);
+
+export const Loadable = <P extends object>(Component: ComponentType<P>) => {
+  const LoadableComponent = (props: P) => {
+    const { pathname } = useLocation();
+    return (
+      <SuspenseAndErrorBoundary
+        suspenseUI={
+          <LoadingScreen isDashboard={pathname.includes("/dashboard")} />
+        }
+      >
+        <Component {...props} />
+      </SuspenseAndErrorBoundary>
+    );
+  };
+  return LoadableComponent;
 };
 
-export type RouteObjectWithNavbar =
-  | (IndexRouteObject & NavbarFields)
-  | (Omit<NonIndexRouteObject, "children"> & {
-      children: RouteObjectWithNavbar[];
-    } & NavbarFields);
+const DashboardLayout = Loadable(
+  lazy(() => import("../layouts/dashboards/index")),
+);
+const HomePage = Loadable(lazy(() => import("../pages/home/Home.page")));
+const AuthSuccess = Loadable(lazy(() => import("../pages/auth/Success.page")));
+const LoginPage = Loadable(lazy(() => import("../pages/auth/Login.page")));
+const RegisterUser = Loadable(
+  lazy(() => import("../pages/auth/Register.page")),
+);
 
-export const RouteObjectWithNavbarSettings: RouteObjectWithNavbar[] = [
-  {
+const PATH_DASHBOARD = {
+  root: {
     path: "/",
-    element: <PageWrapper component={<DashboardLayout />} />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        element: <Navigate to="/home" replace />,
+    element: <DashboardLayout />,
+    children: {
+      root: {
+        element: <Navigate to={"home"} replace />,
         index: true,
+        path: "",
       },
-    ],
-  },
-  {
-    path: "/auth-success",
-    errorElement: <ErrorPage />,
-    element: <PageWrapper component={<AuthSuccess />} />,
-    children: [],
-  },
-  {
-    path: "/home",
-    element: <PageWrapper component={<DashboardLayout />} />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        caseSensitive: false,
-        index: true,
+      notFound: {
+        title: "Page 404",
+        path: "*",
+        element: (
+          <Result
+            status="404"
+            title="404"
+            subTitle="Sorry, the page you visited does not exist."
+            extra={
+              <Button
+                type="primary"
+                onClick={() => {
+                  window.location.href = "/";
+                }}
+              >
+                Back Home
+              </Button>
+            }
+          />
+        ),
+      },
+      home: {
+        title: "home",
         path: "/home",
-        lazy: async () => {
-          const { Home } = await import("../pages/home/Home.page");
-          return { element: <PageWrapper component={<Home />} /> };
+        icon: getIcon("material-symbols-home-outline-rounded"),
+        element: <HomePage />,
+        toolTip: "Alt + H",
+      },
+      auth: {
+        path: "/auth",
+        element: <Navigate to="/auth/login" replace />,
+        children: {
+          login: {
+            title: "User Login",
+            path: "/auth/login",
+            element: <LoginPage />,
+          },
+          register: {
+            title: "Register User",
+            path: "/auth/register",
+            element: <RegisterUser />,
+          },
+          // callback
+          success: {
+            title: "Success",
+            path: "/auth/success",
+            element: <AuthSuccess />,
+          },
         },
-        icon: <PieChartOutlined />,
-        navPath: "/home",
-        navLabel: "Home",
-        title: "Home",
-        subheader: "Home",
       },
-    ],
+    },
   },
-  {
-    path: "/login",
-    children: [
-      {
-        element: <Login />,
-        index: true,
-      },
-    ],
-  },
-  {
-    path: "/*",
-    element: (
-      <Result
-        status="404"
-        title="404"
-        subTitle="Page Not Found!"
-        extra={[
-          <BackBtn type="primary" key="back" />,
-          <RefreshBtn key="refresh" />,
-        ]}
-      />
-    ),
-    children: [],
-  },
-];
+};
+
+export const PATH_OBJ = PATH_DASHBOARD.root.children;
+
+// Updated childrenArray function
+const childrenArray = (
+  childrenObject: Record<string, RouteObject>,
+): RouteObject[] => {
+  return Object.entries(childrenObject).map(([_key, value]) => {
+    const { children, ...rest } = value;
+    if (children) {
+      const processedChildren = Array.isArray(children)
+        ? children
+        : childrenArray(children);
+      return {
+        ...rest,
+        children: processedChildren,
+        items: processedChildren.filter((pathObj) =>
+          Boolean(pathObj.navbarPath),
+        ),
+      };
+    } else {
+      return { ...rest };
+    }
+  });
+};
+
+export const navRouteConfig = childrenArray(PATH_DASHBOARD.root.children);
+
+// ----------------------------------------------------------------------
+export default function Router() {
+  return useRoutes(navRouteConfig);
+}
