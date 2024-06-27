@@ -35,7 +35,7 @@ export const Login = () => {
               padding: 0,
             }}
           >
-            Ghost of <span style={{ color: "#00a66e" }}>Ogilvy</span>
+            Fastify + React + Antd Boilerplate
           </Typography.Title>
         </Col>
       </Row>
@@ -56,7 +56,7 @@ export const Login = () => {
               textAlign: "center",
             }}
           >
-            An AI-assited Landing Page audit tool trained on proven frameworks
+            Simple and easy to use
           </Typography.Title>
         </Col>
       </Row>

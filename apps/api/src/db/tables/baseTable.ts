@@ -6,8 +6,7 @@ export const BaseTable = createBaseTable({
   snakeCase: true,
   columnTypes: (t) => ({
     ...t,
-    autoId: () => t.identity().primaryKey(),
-    text: () => t.text(0, Infinity),
+    autoId: () => t.serial().primaryKey(),
     createdAt: t.timestamps().createdAt,
     updatedAt: t.timestamps().updatedAt,
   }),

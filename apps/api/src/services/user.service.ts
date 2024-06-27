@@ -8,9 +8,8 @@ export const getUserByEmail = async (userEmail: string): Promise<any> => {
 };
 
 export const addNewUser = async (
-  userDetails: Omit<User, "id">
+  userDetails: Omit<User, "id">,
 ): Promise<User> => {
-  const newUser = await db.user.create(userDetails);
-  console.info("New user created");
+  const newUser = await db.user.selectAll().create(userDetails);
   return newUser;
 };
