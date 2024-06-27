@@ -10,10 +10,10 @@ import {
 import { BackBtn, RefreshBtn } from "tezi-antd-components";
 import { ErrorPage } from "../pages/Error.page";
 import { Login } from "../pages/auth/Login.page";
-import { BaseLayout } from "../pages/base.layout";
 import { useAuth } from "../hooks/useAuth";
 import AuthSuccess from "../pages/auth/Success.page";
 import ServiceWorkerUpdateDialog from "../components/ServiceWorkerUpdate";
+import { DashboardLayout } from "../layouts/dashboards";
 
 // Custom scroll restoration function
 export const ScrollToTop: FC = () => {
@@ -66,6 +66,7 @@ export type RouteObjectWithNavbar =
 export const RouteObjectWithNavbarSettings: RouteObjectWithNavbar[] = [
   {
     path: "/",
+    element: <PageWrapper component={<DashboardLayout />} />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -82,7 +83,7 @@ export const RouteObjectWithNavbarSettings: RouteObjectWithNavbar[] = [
   },
   {
     path: "/home",
-    element: <PageWrapper component={<BaseLayout />} />,
+    element: <PageWrapper component={<DashboardLayout />} />,
     errorElement: <ErrorPage />,
     children: [
       {
