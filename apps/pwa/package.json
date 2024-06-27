@@ -15,10 +15,13 @@
     "@tanstack/react-query": "^4.35.3",
     "@trpc/client": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
+    "@types/js-cookie": "^3.0.6",
     "antd": "^5.17.3",
     "antd-zod": "^5.1.0",
+    "js-cookie": "^3.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-error-boundary": "^4.0.13",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.23.1",
     "tezi-antd-components": "workspace:*"

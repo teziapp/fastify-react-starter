@@ -1,6 +1,7 @@
 import { Button, Flex, Layout, Typography } from "antd";
 import { HTMLAttributes, useRef } from "react";
 import { RouteObjectWithNavbar } from "../../router/router";
+import { useAuth } from "../../hooks/useAuth";
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -8,29 +9,20 @@ const { Title } = Typography;
 interface HeaderNavProps extends HTMLAttributes<HTMLDivElement> {
   childrenComponent?: RouteObjectWithNavbar;
 }
-const userData = sessionStorage.getItem("userDetails");
+
 const AuthButton = () => {
-  return userData?.length ? (
+  const { session, signIn, signOut } = useAuth();
+
+  return session !== null ? (
     <div className="w-full flex justify-around items-center flex-col">
-      <Button
-        type={"primary"}
-        onClick={() => {
-          sessionStorage.clear();
-          window.open(import.meta.env.VITE_BE_URL + "/auth/logout", "_self");
-        }}
-      >
-        Sign out
+      <Button type="primary" onClick={signOut}>
+        Log out
       </Button>
     </div>
   ) : (
     <div className="w-full flex justify-center items-center flex-col">
-      <Button
-        type={"primary"}
-        onClick={() => {
-          window.open(import.meta.env.VITE_BE_URL + "/auth/google", "_self");
-        }}
-      >
-        Sign in
+      <Button type="primary" onClick={signIn}>
+        Log in
       </Button>
     </div>
   );
@@ -38,7 +30,6 @@ const AuthButton = () => {
 
 export const HeaderNav = ({ style, ...others }: HeaderNavProps) => {
   const nodeRef = useRef(null);
-
   style = {
     margin: 0,
     padding: "0rem 1rem",
@@ -61,10 +52,10 @@ export const HeaderNav = ({ style, ...others }: HeaderNavProps) => {
       <Flex
         align="center"
         gap="small"
-        justify={"space-between"}
+        justify="space-between"
         style={{ width: "100%" }}
       >
-        <Title level={2}>Ghost of Ogilvy</Title>
+        <Title level={2}>Salesman Tezi</Title>
         <AuthButton />
       </Flex>
     </Header>

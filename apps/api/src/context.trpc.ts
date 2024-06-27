@@ -26,7 +26,7 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
     }
   } catch (error) {
     throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
+      code: "UNAUTHORIZED",
       message: error instanceof Error ? error.message : "INTERNAL_SERVER_ERROR",
     });
   }

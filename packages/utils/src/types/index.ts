@@ -1,2 +1,2 @@
 export * from "./UserType";
-export * from "./LinkTypes";
+export * from "./SessionType";

@@ -11,8 +11,8 @@ import { BackBtn, RefreshBtn } from "tezi-antd-components";
 import { ErrorPage } from "../pages/Error.page";
 import { Login } from "../pages/auth/Login.page";
 import { BaseLayout } from "../pages/base.layout";
-import { trpc } from "../trpc/trpc";
-import { router } from ".";
+import { useAuth } from "../hooks/useAuth";
+import AuthSuccess from "../pages/auth/Success.page";
 
 // Custom scroll restoration function
 export const ScrollToTop: FC = () => {
@@ -32,23 +32,11 @@ export const ScrollToTop: FC = () => {
 type PageProps = {
   component: ReactNode;
 };
-
-// Create an HOC to wrap your route components with ScrollToTop
 const PageWrapper = ({ component }: PageProps) => {
-  try {
-    const user = trpc.user.useQuery();
-    console.info(user.data);
-    if (user !== undefined) {
-      const userJson = JSON.stringify(user.data);
-      const encodedUser = encodeURIComponent(userJson);
-      sessionStorage.setItem("userDetails", encodedUser);
-    } else {
-      console.info("No user found");
-      router.navigate("/login");
-    }
-  } catch (e) {
-    console.error(e);
-    router.navigate("/login");
+  const { loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>; // Or your loading component
   }
 
   return (
@@ -83,6 +71,12 @@ export const RouteObjectWithNavbarSettings: RouteObjectWithNavbar[] = [
         index: true,
       },
     ],
+  },
+  {
+    path: "/auth-success",
+    errorElement: <ErrorPage />,
+    element: <PageWrapper component={<AuthSuccess />} />,
+    children: [],
   },
   {
     path: "/home",
