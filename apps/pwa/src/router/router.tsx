@@ -13,6 +13,7 @@ import { Login } from "../pages/auth/Login.page";
 import { BaseLayout } from "../pages/base.layout";
 import { useAuth } from "../hooks/useAuth";
 import AuthSuccess from "../pages/auth/Success.page";
+import ServiceWorkerUpdateDialog from "../components/ServiceWorkerUpdate";
 
 // Custom scroll restoration function
 export const ScrollToTop: FC = () => {
@@ -42,6 +43,7 @@ const PageWrapper = ({ component }: PageProps) => {
   return (
     <>
       <ScrollToTop />
+      <ServiceWorkerUpdateDialog />
       {component}
     </>
   );
