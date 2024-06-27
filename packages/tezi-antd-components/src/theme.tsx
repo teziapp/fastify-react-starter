@@ -1,68 +1,66 @@
-import { ConfigProvider } from "antd";
+import { ConfigProvider, ThemeConfig } from "antd";
 import React from "react";
-import { COLOR } from "./colors";
+import { BRAND_COLORS, COLOR } from "./colors";
+
+const theme: ThemeConfig = {
+  token: {
+    colorPrimary: COLOR[500],
+    colorInfo: COLOR[500],
+    colorSuccess: "#52c41a",
+    colorWarning: BRAND_COLORS.yellow,
+    colorError: BRAND_COLORS.red,
+    colorTextBase: "#333",
+    borderRadius: 8,
+    fontFamily:
+      'Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  },
+  components: {
+    Breadcrumb: {
+      itemColor: "rgba(0,0,0,0.65)",
+      linkColor: COLOR[700],
+      separatorColor: "rgba(0,0,0,0.45)",
+    },
+    Button: {
+      colorPrimary: COLOR[500],
+      colorPrimaryHover: COLOR[400],
+      colorPrimaryActive: COLOR[600],
+      colorLink: COLOR[500],
+      colorLinkHover: COLOR[400],
+      colorLinkActive: COLOR[600],
+    },
+    Card: {
+      colorBorderSecondary: COLOR.borderColor,
+    },
+    Carousel: {
+      colorBgContainer: BRAND_COLORS.red,
+      dotWidth: 10,
+      dotHeight: 10,
+      dotActiveWidth: 24,
+    },
+    Menu: {
+      colorItemBgSelected: COLOR[100],
+      colorItemTextSelected: COLOR[700],
+    },
+    Segmented: {
+      colorBgLayout: COLOR[100],
+      colorText: COLOR[700],
+    },
+    Table: {
+      colorBorderSecondary: COLOR[200],
+      rowHoverBg: COLOR[50],
+    },
+    Tabs: {
+      colorBorderSecondary: COLOR[200],
+      inkBarColor: COLOR[500],
+    },
+    Typography: {
+      colorLink: COLOR[500],
+      colorLinkHover: COLOR[400],
+      colorLinkActive: COLOR[600],
+    },
+  },
+};
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-	return (
-		<ConfigProvider
-			theme={{
-				token: {
-					colorPrimary: COLOR["500"],
-					borderRadius: 6,
-					fontFamily: "Lato, sans-serif",
-				},
-				components: {
-					Breadcrumb: {
-						linkColor: "rgba(0,0,0,.8)",
-						itemColor: "rgba(0,0,0,.8)",
-					},
-					Button: {
-						colorLink: COLOR["500"],
-						colorLinkActive: COLOR["700"],
-						colorLinkHover: COLOR["300"],
-					},
-					Calendar: {
-						colorBgContainer: "none",
-					},
-					Card: {
-						colorBgContainer: "none",
-						colorBorderSecondary: COLOR.borderColor,
-					},
-					Carousel: {
-						colorBgContainer: COLOR["800"],
-						dotWidth: 8,
-					},
-					Rate: {
-						colorFillContent: COLOR["100"],
-						colorText: COLOR["600"],
-					},
-					Segmented: {
-						colorBgLayout: COLOR["100"],
-						borderRadius: 6,
-						colorTextLabel: "#000000",
-					},
-					Table: {
-						borderColor: COLOR["100"],
-						// colorBgContainer: "none",
-						// headerBg: "none",
-						rowHoverBg: COLOR["50"],
-					},
-					Tabs: {
-						colorBorderSecondary: COLOR["100"],
-					},
-					Timeline: {
-						dotBg: "none",
-					},
-					Typography: {
-						colorLink: COLOR["500"],
-						colorLinkActive: COLOR["700"],
-						colorLinkHover: COLOR["300"],
-						linkHoverDecoration: "underline",
-					},
-				},
-			}}
-		>
-			{children}
-		</ConfigProvider>
-	);
+  return <ConfigProvider theme={theme}>{children}</ConfigProvider>;
 }
