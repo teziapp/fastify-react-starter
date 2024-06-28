@@ -1,16 +1,16 @@
 {
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/"
-        },
-        {
-            "source": "/home",
-            "destination": "/home"
-        },
-        {
-            "source": "/login",
-            "destination": "/login"
-        }
-    ]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    },
+    {
+      "source": "/home",
+      "destination": "/home"
+    },
+    {
+      "source": "/auth/login",
+      "destination": "/auth/login"
+    }
+  ]
 }

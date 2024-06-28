@@ -94,7 +94,6 @@ const PATH_DASHBOARD = {
       },
       auth: {
         path: "/auth",
-        element: <Navigate to="/auth/login" replace />,
         children: {
           login: {
             title: "User Login",

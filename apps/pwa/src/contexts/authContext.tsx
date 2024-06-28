@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           ...session,
           user: session.user[0],
         });
-        if (window.location.pathname === "/login") {
+        if (window.location.pathname === "/auth/login") {
           window.location.href = "/";
         }
       } else {
@@ -47,21 +47,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             // @ts-ignore
             user: result.user[0],
           });
-          if (window.location.pathname === "/login") {
+          if (window.location.pathname === "/auth/login") {
             window.location.href = "/";
           }
         } else {
           setSession(null);
           sessionStorage.removeItem("sessionDetails");
-          window.location.href = "/login";
+          window.location.href = "/auth/login";
         }
       }
     } catch (error) {
       sessionStorage.removeItem("sessionDetails");
       setSession(null);
       sessionStorage.removeItem("sessionDetails");
-      if (window.location.pathname !== "/login") {
-        window.location.href = "/login";
+      if (window.location.pathname !== "/auth/login") {
+        window.location.href = "/auth/login";
       }
     }
   };
@@ -85,14 +85,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
       sessionStorage.removeItem("sessionDetails");
       setSession(null);
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
       setLoading(false);
     } catch (error) {
       console.error("Error during sign out:", error);
       sessionStorage.removeItem("sessionDetails");
       setSession(null);
       setLoading(false);
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
     }
   };
 
