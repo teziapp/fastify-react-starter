@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CSSProperties } from "react";
 
 type LogoProps = {
-  color: CSSProperties["color"];
+  color?: CSSProperties["color"];
   imgSize?: {
     h?: number | string;
     w?: number | string;

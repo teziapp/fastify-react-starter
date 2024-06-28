@@ -1,7 +1,7 @@
 import React from "react";
-import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import { varContainer } from "./variants/container";
+import { m } from "framer-motion";
 
 interface MotionContainerProps {
   animate?: boolean;
@@ -10,7 +10,7 @@ interface MotionContainerProps {
   [key: string]: any; // for ...other props
 }
 
-const StyledMotionDiv = styled(motion.div)`
+const StyledMotionDiv = styled(m.div)`
   // Add any default styles here if needed
 `;
 

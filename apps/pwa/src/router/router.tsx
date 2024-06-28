@@ -83,8 +83,14 @@ const PATH_DASHBOARD = {
         title: "home",
         path: "/home",
         icon: getIcon("material-symbols-home-outline-rounded"),
-        element: <HomePage />,
-        toolTip: "Alt + H",
+        element: <DashboardLayout />,
+        children: {
+          root: {
+            title: "Home",
+            path: "/home",
+            element: <HomePage />,
+          },
+        },
       },
       auth: {
         path: "/auth",
@@ -114,20 +120,16 @@ const PATH_DASHBOARD = {
 
 export const PATH_OBJ = PATH_DASHBOARD.root.children;
 
-// Updated childrenArray function
-const childrenArray = (
-  childrenObject: Record<string, RouteObject>,
-): RouteObject[] => {
-  return Object.entries(childrenObject).map(([_key, value]) => {
-    const { children, ...rest } = value;
+// ----------------------------------------------------------------------
+
+const childrenArray: any = (childrenObject: any) => {
+  return Object.values(childrenObject).map((value) => {
+    let { children, ...rest }: any = value;
     if (children) {
-      const processedChildren = Array.isArray(children)
-        ? children
-        : childrenArray(children);
       return {
         ...rest,
-        children: processedChildren,
-        items: processedChildren.filter((pathObj) =>
+        children: childrenArray(children),
+        items: childrenArray(children).filter((pathObj: any) =>
           Boolean(pathObj.navbarPath),
         ),
       };
@@ -138,7 +140,6 @@ const childrenArray = (
 };
 
 export const navRouteConfig = childrenArray(PATH_DASHBOARD.root.children);
-
 // ----------------------------------------------------------------------
 export default function Router() {
   return useRoutes(navRouteConfig);

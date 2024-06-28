@@ -38,8 +38,8 @@ const theme: ThemeConfig = {
       dotActiveWidth: 24,
     },
     Menu: {
-      colorItemBgSelected: COLOR[100],
-      colorItemTextSelected: COLOR[700],
+      itemSelectedColor: COLOR[100],
+      itemSelectedColor: COLOR[700],
     },
     Segmented: {
       colorBgLayout: COLOR[100],

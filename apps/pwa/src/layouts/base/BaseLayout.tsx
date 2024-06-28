@@ -122,6 +122,7 @@ export const BaseLayout = ({ children }: AppLayoutProps) => {
             top: 0,
             bottom: 0,
             background: "none",
+            boxShadow: navFill ? "0 0 8px 2px rgba(0, 0, 0, 0.05)" : "none",
             border: "none",
             transition: "all .2s",
           }}
@@ -137,7 +138,6 @@ export const BaseLayout = ({ children }: AppLayoutProps) => {
               padding: "0 2rem 0 0",
               background: navFill ? "rgba(255, 255, 255, .5)" : "none",
               backdropFilter: navFill ? "blur(8px)" : "none",
-              boxShadow: navFill ? "0 0 8px 2px rgba(0, 0, 0, 0.05)" : "none",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",

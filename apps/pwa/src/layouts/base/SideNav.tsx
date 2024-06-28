@@ -1,8 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ConfigProvider, Layout, Menu, MenuProps, SiderProps } from "antd";
+import {
+  ConfigProvider,
+  Divider,
+  Flex,
+  Layout,
+  Menu,
+  MenuProps,
+  SiderProps,
+  Typography,
+} from "antd";
 import { useLocation } from "react-router-dom";
 import { Logo } from "../../components/Logo/Logo";
 import { PieChartOutlined } from "@ant-design/icons";
+import { appVersion } from "../../config";
 
 const { Sider } = Layout;
 
@@ -59,15 +69,18 @@ const SideNav = ({ ...others }: SideNavProps) => {
 
   return (
     <Sider ref={nodeRef} breakpoint="lg" collapsedWidth="0" {...others}>
-      <Logo
-        color="black"
-        asLink
-        href={"/"}
-        justify="center"
-        gap="small"
-        imgSize={{ h: 28, w: 28 }}
-        style={{ padding: "1rem 0" }}
-      />
+      <Flex vertical align="center">
+        <Logo
+          color="black"
+          asLink
+          href={"/"}
+          justify="center"
+          gap="small"
+          imgSize={{ h: 28, w: 28 }}
+          style={{ padding: "1rem 0" }}
+        />
+        <Typography.Text disabled>v. {appVersion} </Typography.Text>
+      </Flex>
       <ConfigProvider
         theme={{
           components: {
