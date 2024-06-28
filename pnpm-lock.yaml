@@ -151,6 +151,9 @@ importers:
       antd-zod:
         specifier: ^5.1.0
         version: 5.1.0(antd@5.18.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      common-components:
+        specifier: workspace:*
+        version: link:../../packages/tezi-antd-components
       framer-motion:
         specifier: ^11.2.12
         version: 11.2.12(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -178,9 +181,6 @@ importers:
       react-transition-group:
         specifier: ^4.4.5
         version: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tezi-antd-components:
-        specifier: workspace:*
-        version: link:../../packages/tezi-antd-components
       zustand:
         specifier: ^4.5.4
         version: 4.5.4(@types/react@18.3.3)(react@18.3.1)

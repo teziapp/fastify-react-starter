@@ -30,7 +30,7 @@ export const Logo = ({
       <Flex gap={others.gap || "small"} align="center" {...others}>
         <img
           src="/favicon/android-chrome-512x512.png"
-          alt="Tezi Logo"
+          alt="Logo"
           height={imgSize?.h || 48}
         />
         <Typography.Title
@@ -44,7 +44,7 @@ export const Logo = ({
             borderRadius,
           }}
         >
-          Tezi
+          My App
         </Typography.Title>
       </Flex>
     </Link>
@@ -52,7 +52,7 @@ export const Logo = ({
     <Flex gap={others.gap || "small"} align="center" {...others}>
       <img
         src="/favicon/android-chrome-512x512.png"
-        alt="Tezi Logo"
+        alt="Logo"
         height={imgSize?.h || 48}
       />
     </Flex>

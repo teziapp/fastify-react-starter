@@ -55,7 +55,7 @@ export const HeaderNav = ({ style, ...others }: HeaderNavProps) => {
         justify="space-between"
         style={{ width: "100%" }}
       >
-        <Title level={2}>Salesman Tezi</Title>
+        <Title level={2}>My App</Title>
         <AuthButton />
       </Flex>
     </Header>

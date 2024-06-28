@@ -1,5 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query";
-import { AntdThemeProvider } from "tezi-antd-components";
+import { AntdThemeProvider } from "common-components";
 import { queryClient, trpc, trpcClient } from "./trpc/trpc";
 import { AuthProvider } from "./contexts/authContext";
 import { HelmetProvider } from "react-helmet-async";

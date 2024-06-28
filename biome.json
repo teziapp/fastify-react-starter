@@ -1,96 +1,96 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
-	"formatter": { "formatWithErrors": true, "lineWidth": 90 },
-	"organizeImports": { "enabled": true },
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": false,
-			"complexity": {
-				"noBannedTypes": "error",
-				"noExcessiveCognitiveComplexity": {
-					"level": "error",
-					"options": { "maxAllowedComplexity": 10 }
-				},
-				"noUselessTernary": "error",
-				"noUselessThisAlias": "error",
-				"noUselessTypeConstraint": "error",
-				"useSimplifiedLogicExpression": "error"
-			},
-			"correctness": {
-				"useJsxKeyInIterable": "error",
-				"noPrecisionLoss": "error",
-				"noUndeclaredVariables": "error",
-				"noUnusedImports": "error",
-				"noUnusedPrivateClassMembers": "error",
-				"noUnusedVariables": "error"
-			},
-			"performance": {
-				"noBarrelFile": "error"
-			},
-			"nursery": {
-				"noDuplicateJsonKeys": "error",
-				"noFlatMapIdentity": "error",
-				"useArrayLiterals": "error",
-				"useConsistentBuiltinInstantiation": "error",
-				"useDefaultSwitchClause": "error",
-				"noConstantMathMinMaxClamp": "error"
-			},
-			"style": {
-				"noDefaultExport": "error",
-				"noNamespace": "error",
-				"noNegationElse": "error",
-				"useAsConstAssertion": "error",
-				"useBlockStatements": "error",
-				"useConsistentArrayType": {
-					"level": "error",
-					"options": { "syntax": "shorthand" }
-				},
-				"useFilenamingConvention": "error",
-				"useForOf": "error",
-				"useFragmentSyntax": "error",
-				"useNamingConvention": {
-					"level": "warn",
-					"options": { "requireAscii": true }
-				},
-				"useShorthandAssign": "error",
-				"useShorthandFunctionType": "error",
-				"useSingleCaseStatement": "error"
-			},
-			"suspicious": {
-				"noConsoleLog": "error",
-				"noEmptyBlockStatements": "error",
-				"noExplicitAny": "error",
-				"noExtraNonNullAssertion": "error",
-				"noMisleadingInstantiator": "error",
-				"noSuspiciousSemicolonInJsx": "error",
-				"noUnsafeDeclarationMerging": "error"
-			}
-		}
-	},
-	"overrides": [
-		{
-			"include": ["packages/**"],
-			"linter": {
-				"rules": {
-					"performance": {
-						"noBarrelFile": "off"
-					}
-				}
-			}
-		},
-		{
-			"include": [
-				"apps/api/src/configs/env.config.ts",
-				"packages/tezi-antd-components/src/theme.tsx"
-			],
-			"linter": {
-				"rules": {
-					"style": {
-						"useNamingConvention": "off"
-					}
-				}
-			}
-		}
-	]
+  "$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
+  "formatter": { "formatWithErrors": true, "lineWidth": 90 },
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "complexity": {
+        "noBannedTypes": "error",
+        "noExcessiveCognitiveComplexity": {
+          "level": "error",
+          "options": { "maxAllowedComplexity": 10 }
+        },
+        "noUselessTernary": "error",
+        "noUselessThisAlias": "error",
+        "noUselessTypeConstraint": "error",
+        "useSimplifiedLogicExpression": "error"
+      },
+      "correctness": {
+        "useJsxKeyInIterable": "error",
+        "noPrecisionLoss": "error",
+        "noUndeclaredVariables": "error",
+        "noUnusedImports": "error",
+        "noUnusedPrivateClassMembers": "error",
+        "noUnusedVariables": "error"
+      },
+      "performance": {
+        "noBarrelFile": "error"
+      },
+      "nursery": {
+        "noDuplicateJsonKeys": "error",
+        "noFlatMapIdentity": "error",
+        "useArrayLiterals": "error",
+        "useConsistentBuiltinInstantiation": "error",
+        "useDefaultSwitchClause": "error",
+        "noConstantMathMinMaxClamp": "error"
+      },
+      "style": {
+        "noDefaultExport": "error",
+        "noNamespace": "error",
+        "noNegationElse": "error",
+        "useAsConstAssertion": "error",
+        "useBlockStatements": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        },
+        "useFilenamingConvention": "error",
+        "useForOf": "error",
+        "useFragmentSyntax": "error",
+        "useNamingConvention": {
+          "level": "warn",
+          "options": { "requireAscii": true }
+        },
+        "useShorthandAssign": "error",
+        "useShorthandFunctionType": "error",
+        "useSingleCaseStatement": "error"
+      },
+      "suspicious": {
+        "noConsoleLog": "error",
+        "noEmptyBlockStatements": "error",
+        "noExplicitAny": "error",
+        "noExtraNonNullAssertion": "error",
+        "noMisleadingInstantiator": "error",
+        "noSuspiciousSemicolonInJsx": "error",
+        "noUnsafeDeclarationMerging": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "include": ["packages/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    },
+    {
+      "include": [
+        "apps/api/src/configs/env.config.ts",
+        "packages/common-components/src/theme.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    }
+  ]
 }

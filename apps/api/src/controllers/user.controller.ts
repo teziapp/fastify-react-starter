@@ -1,12 +1,12 @@
 import {
+  adminProcedure,
   protectedProcedure,
   publicProcedure,
   router,
-  teziAdminProcedure,
 } from "../context.trpc";
 
 export const userController = router({
-  all: teziAdminProcedure.query(() => {
+  all: adminProcedure.query(() => {
     return {
       name: "All",
     };

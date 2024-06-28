@@ -47,5 +47,5 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
 export const trpcMiddleware = t.middleware;
 export const protectedProcedure = t.procedure.use(isAuthed);
 export const publicProcedure = t.procedure;
-export const teziAdminProcedure = t.procedure.use(isAuthed); //.use(isTeziAdmin);
+export const adminProcedure = t.procedure.use(isAuthed);
 export const router = t.router;

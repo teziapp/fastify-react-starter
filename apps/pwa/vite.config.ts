@@ -27,9 +27,9 @@ export default defineConfig(({ mode }) => {
           "favicon/favicon-32x32.png",
         ],
         manifest: {
-          short_name: "Tezi-Salesman",
-          name: "Salesman-Tezi",
-          description: "Tezi hai to mumkin hai.",
+          short_name: "My App",
+          name: "My App",
+          description: "Good Description",
           icons: [
             {
               src: "favicon.ico",
