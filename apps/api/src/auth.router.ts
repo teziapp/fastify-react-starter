@@ -90,7 +90,7 @@ export const authRouter = (
           domain: new URL(env.FRONTEND_URL).hostname,
         });
 
-        reply.redirect(`${env.FRONTEND_URL}/auth-success`);
+        reply.redirect(`${env.FRONTEND_URL}/auth/success`);
       } catch (error) {
         req.log.error(error);
         reply.redirect("/auth/login/failed");
