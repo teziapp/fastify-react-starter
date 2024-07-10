@@ -36,7 +36,7 @@ app.setErrorHandler(function (error, _request, reply) {
 });
 
 app.register(cookiePlugin);
-app.register(fastifyJwt, { secret: env.JWT_SECRET });
+app.register(fastifyJwt, { secret: env.JWT_SECRET as string });
 app.register(oauthPlugin, {
   name: "googleOAuth2",
   scope: ["profile", "email"],
@@ -46,8 +46,8 @@ app.register(oauthPlugin, {
   credentials: {
     auth: oauthPlugin.GOOGLE_CONFIGURATION,
     client: {
-      id: env.GOOGLE_CLIENT_ID,
-      secret: env.GOOGLE_CLIENT_SECRET,
+      id: env.GOOGLE_CLIENT_ID as string,
+      secret: env.GOOGLE_CLIENT_SECRET as string,
     },
   },
   startRedirectPath: "/auth/google",

@@ -30,10 +30,11 @@ export const ErrorPage = () => {
           </Text>
         </Paragraph>
         <Paragraph copyable>
-          {/* @ts-expect-error error is of unknown type */}
           {error instanceof Error
             ? error.message
-            : error?.statusText ?? "Unknown error"}
+            : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              error?.statusText ?? "Unknown error"}
         </Paragraph>
       </div>
     </Result>
