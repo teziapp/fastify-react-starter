@@ -1,4 +1,4 @@
-import { SessionType } from "@repo/utils";
+import type from "@repo/utils";
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { trpcFetch } from "../trpc/trpcFetch";
 
@@ -11,7 +11,7 @@ export interface AuthContextType {
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined,
+  undefined
 );
 
 interface AuthProviderProps {
@@ -25,43 +25,48 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const checkUser = async () => {
     const sessionDetails = sessionStorage.getItem("sessionDetails");
     try {
+      console.log("sessionDetails", sessionDetails);
       if (sessionDetails) {
         const session = JSON.parse(decodeURIComponent(sessionDetails));
         setSession({
           ...session,
           user: session.user[0],
         });
-        if (window.location.pathname === "/login") {
+        if (window.location.pathname === "/auth/login") {
           window.location.href = "/";
         }
       } else {
+        console.log("no session");
         setLoading(true);
         const result = await trpcFetch.user.query();
+        console.log("result", result);
         setLoading(false);
         if (result) {
           const encodedSession = encodeURIComponent(JSON.stringify(result));
           sessionStorage.setItem("sessionDetails", encodedSession);
           setSession({
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             ...result,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             user: result.user[0],
           });
-          if (window.location.pathname === "/login") {
+          if (window.location.pathname === "/auth/login") {
             window.location.href = "/";
           }
         } else {
           setSession(null);
           sessionStorage.removeItem("sessionDetails");
-          window.location.href = "/login";
+          window.location.href = "/auth/login";
         }
       }
     } catch (error) {
       sessionStorage.removeItem("sessionDetails");
       setSession(null);
       sessionStorage.removeItem("sessionDetails");
-      if (window.location.pathname !== "/login") {
-        window.location.href = "/login";
+      if (window.location.pathname !== "/auth/login") {
+        window.location.href = "/auth/login";
       }
     }
   };
@@ -85,14 +90,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
       sessionStorage.removeItem("sessionDetails");
       setSession(null);
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
       setLoading(false);
     } catch (error) {
       console.error("Error during sign out:", error);
       sessionStorage.removeItem("sessionDetails");
       setSession(null);
       setLoading(false);
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
     }
   };
 

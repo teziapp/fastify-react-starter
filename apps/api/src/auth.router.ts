@@ -17,7 +17,7 @@ declare module "fastify" {
 export const authRouter = (
   fastify: FastifyInstance,
   _opts: FastifyPluginOptions,
-  done: () => void,
+  done: () => void
 ) => {
   fastify.get("/login/failed", (_, reply: FastifyReply) => {
     reply.status(401).send({ message: "Login Failed" });
@@ -28,7 +28,7 @@ export const authRouter = (
 
     reply.clearCookie("session", {
       path: "/",
-      domain: new URL(env.FRONTEND_URL).hostname,
+      domain: new URL(env.FRONTEND_URL as string).hostname,
       secure: true,
       httpOnly: true,
       sameSite: "none",
@@ -43,7 +43,7 @@ export const authRouter = (
       try {
         const { token: googleToken } =
           await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(
-            req,
+            req
           );
 
         if (!googleToken) {
@@ -56,7 +56,7 @@ export const authRouter = (
             headers: {
               Authorization: `Bearer ${googleToken.access_token}`,
             },
-          },
+          }
         );
 
         if (!userInfoResponse.ok) {
@@ -87,7 +87,7 @@ export const authRouter = (
           secure: true,
           sameSite: "none",
           path: "/",
-          domain: new URL(env.FRONTEND_URL).hostname,
+          domain: new URL(env.FRONTEND_URL as string).hostname,
         });
 
         reply.redirect(`${env.FRONTEND_URL}/auth/success`);
@@ -95,7 +95,7 @@ export const authRouter = (
         req.log.error(error);
         reply.redirect("/auth/login/failed");
       }
-    },
+    }
   );
 
   done();

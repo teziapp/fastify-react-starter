@@ -2,8 +2,6 @@ import { matchPath } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
-export { default } from "./NavSectionVertical";
-
 export function isExternalLink(path: string) {
   return path.includes("http");
 }

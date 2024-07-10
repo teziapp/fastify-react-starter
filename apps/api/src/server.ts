@@ -10,7 +10,7 @@ const port = Number(process.env.PORT) || 3000;
 
 // TODO: Figure out how to get secure-session https://www.npmjs.com/package/@fastify/secure-session
 server.register(fastifyCors, {
-  origin: [env.FRONTEND_URL],
+  origin: [env.FRONTEND_URL as string],
   credentials: true,
 });
 

@@ -1,10 +1,21 @@
 import { Button, Flex, Layout, Typography } from "antd";
-import { HTMLAttributes, useRef } from "react";
-import { RouteObjectWithNavbar } from "../../router/router";
+import { HTMLAttributes, ReactNode, useRef } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 const { Header } = Layout;
 const { Title } = Typography;
+
+interface RouteObjectWithNavbar {
+  title?: string;
+  path: string;
+  element: ReactNode;
+  icon?: ReactNode;
+  toolTip?: string;
+  navbarPath?: boolean;
+  children?: Record<string, RouteObjectWithNavbar> | RouteObjectWithNavbar[];
+  index?: boolean;
+  items?: RouteObjectWithNavbar[]; // Add this line
+}
 
 interface HeaderNavProps extends HTMLAttributes<HTMLDivElement> {
   childrenComponent?: RouteObjectWithNavbar;

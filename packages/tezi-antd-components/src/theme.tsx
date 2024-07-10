@@ -38,7 +38,7 @@ const theme: ThemeConfig = {
       dotActiveWidth: 24,
     },
     Menu: {
-      itemSelectedColor: COLOR[100],
+      itemSelectedBg: COLOR[100],
       itemSelectedColor: COLOR[700],
     },
     Segmented: {

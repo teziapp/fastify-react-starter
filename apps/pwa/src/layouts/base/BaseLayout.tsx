@@ -175,7 +175,7 @@ export const BaseLayout = ({ children }: AppLayoutProps) => {
                     size="large"
                     gap={1}
                   >
-                    {session?.user.name[0]}
+                    {session?.user?.name[0]}
                   </Avatar>
                 </Flex>
               </Dropdown>

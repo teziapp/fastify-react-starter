@@ -1,31 +1,51 @@
 import React, { useEffect } from "react";
-import { useAuth } from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 import { Button, Result } from "antd";
+import { CircleLoading } from "../../components/loading";
+import { trpc } from "../../trpc/trpc";
+import { useUserActions, useUserToken } from "../../store/userStore";
+import { useRouter } from "../../router/hooks";
 
-const AuthSuccess: React.FC = () => {
-  const navigate = useNavigate();
-  const { session, loading, signIn } = useAuth();
-
+export const AuthSuccess: React.FC = () => {
+  const router = useRouter();
+  const { exp } = useUserToken();
+  const { setUserInfo, setUserToken } = useUserActions();
+  const userSession = trpc.user.useQuery(undefined, {
+    retry: 2,
+    staleTime: Infinity,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    refetchOnMount: true,
+  });
   useEffect(() => {
-    if (session?.user && !loading) {
-      navigate("/", { replace: true });
+    if (exp) {
+      router.replace("/");
+    } else if (userSession.data) {
+      console.log({ data: userSession.data });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setUserToken({ exp: userSession.data.exp, iat: userSession.data.iat });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setUserInfo(userSession.data.user);
+      router.replace("/");
     }
-  }, [session, loading]);
+  }, [router, userSession.isLoading]);
 
-  if (session == null) {
+  if (userSession.isError) {
     return (
       <Result
         status="error"
         title="Failed to Authenticate!"
         subTitle="Please try again."
         extra={[
-          <Button type="primary" onClick={signIn}>
+          <Button type="primary" onClick={() => router.replace("/auth/login")}>
             Login
           </Button>,
         ]}
       />
     );
+  } else if (userSession.isLoading) {
+    <CircleLoading />;
   } else {
     return (
       <Result
@@ -36,5 +56,3 @@ const AuthSuccess: React.FC = () => {
     );
   }
 };
-
-export default AuthSuccess;

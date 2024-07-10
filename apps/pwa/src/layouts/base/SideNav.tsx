@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   ConfigProvider,
-  Divider,
   Flex,
   Layout,
   Menu,
@@ -23,7 +22,7 @@ const getItem = (
   key: React.Key,
   icon?: React.ReactNode,
   children?: MenuItem[],
-  type?: "group",
+  type?: "group"
 ): MenuItem => {
   return {
     key,

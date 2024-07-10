@@ -9,8 +9,8 @@
             "destination": "/home"
         },
         {
-            "source": "/login",
-            "destination": "/login"
+            "source": "/auth/login",
+            "destination": "/auth/login"
         }
     ]
 }
