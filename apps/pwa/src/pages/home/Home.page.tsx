@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Typography, Row } from "antd";
+import { Typography } from "antd";
 
 export const Home: React.FC = () => {
   return (

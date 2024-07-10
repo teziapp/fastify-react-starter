@@ -7,7 +7,7 @@ import {
   NonIndexRouteObject,
 } from "react-router-dom";
 import { ErrorPage } from "../pages/Error.page";
-import DashboardLayout from "../layouts/dashboards";
+import DashboardLayout from "../layouts/dashboard";
 import Page404 from "../pages/Error/Page404";
 
 type PageProps = {
@@ -56,8 +56,8 @@ export const RouteObjectWithNavbar: RouteObjectWithNavbar[] = [
         index: true,
         path: "/dashboard",
         lazy: async () => {
-          const { Home } = await import("../pages/home/Home.page");
-          return { element: <PageWrapper component={<Home />} /> };
+          const { Workbench } = await import("../pages/dashboard/workbench");
+          return { element: <PageWrapper component={<Workbench />} /> };
         },
         icon: "ph:chart-pie-slice-duotone",
         navPath: "/dashboard",

@@ -3,8 +3,8 @@ import { Badge, Button, Drawer, Space, Tabs, TabsProps } from "antd";
 import Color from "color";
 import { CSSProperties, ReactNode, useState } from "react";
 
-import CyanBlur from "@/assets/images/background/cyan-blur.png";
-import RedBlur from "@/assets/images/background/red-blur.png";
+import CyanBlur from "../../assets/images/background/cyan-blur.png";
+import RedBlur from "../../assets/images/background/red-blur.png";
 import { IconButton, Iconify, SvgIcon } from "../../components/icon";
 import { useThemeToken } from "../../theme/hooks";
 import ProTag from "../../theme/antd/components/tag";
