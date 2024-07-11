@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient, trpc, trpcClient } from "./trpc/trpc";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
+// eslint-disable-next-line import/no-unresolved
+import "virtual:svg-icons-register";
 // tailwind css
 import "./theme/index.css";
 
@@ -18,5 +20,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </Suspense>
       </QueryClientProvider>
     </trpc.Provider>
-  </HelmetProvider>
+  </HelmetProvider>,
 );
