@@ -20,7 +20,6 @@ export const AuthSuccess: React.FC = () => {
     if (exp) {
       router.replace("/");
     } else if (userSession.data) {
-      console.log({ data: userSession.data });
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setUserToken({ exp: userSession.data.exp, iat: userSession.data.iat });
