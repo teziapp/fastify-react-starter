@@ -33,7 +33,6 @@ export const authRouter = (
       httpOnly: true,
       sameSite: "none",
     });
-    console.log("sending response of logout");
     reply.send({ message: "Logged out" });
   });
 
@@ -71,7 +70,7 @@ export const authRouter = (
 
         let user = await getUserByEmail(userInfo.email);
 
-        if (!user) {
+        if (!user[0]?.id) {
           user = await addNewUser({
             name: userInfo.name,
             email: userInfo.email,
@@ -79,7 +78,6 @@ export const authRouter = (
             profilePicture: userInfo.picture,
           });
         }
-
         const jwtToken = fastify.jwt.sign({ user }, { expiresIn: "7d" });
 
         reply.setCookie("session", jwtToken, {

@@ -33,7 +33,7 @@ export function Login() {
         <Flex gap={"small"} align="center">
           <Logo className="h-14 w-14" />
           <div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl">
-            Tezi
+            Your app title
           </div>
         </Flex>
         <img
