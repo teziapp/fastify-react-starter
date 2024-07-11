@@ -45,6 +45,8 @@
     "screenfull": "^6.0.2",
     "simplebar-react": "^3.2.6",
     "styled-components": "^6.1.11",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-tsconfig-paths": "^4.3.2",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

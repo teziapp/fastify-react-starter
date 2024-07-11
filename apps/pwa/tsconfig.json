@@ -1,26 +1,44 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "types": ["vite/client"],
+    "target": "ESNext", // Target version of compiled code (ECMAScript).
+    "module": "ESNext", // Type of module system used. ESNext supports more features, such as dynamic imports.
+    "lib": ["ESNext", "DOM", "DOM.Iterable"], // Library files to include. DOM, DOM.Iterable, and ESNext library files are basic dependencies in TypeScript development.
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
+    "skipLibCheck": true, // Skip compiler checks on imported library files to speed up build time
+    "allowJs": true, // Allow compilation of JavaScript files
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "sourceMap": true, // Output *.map files to provide source code mapping
+    "declaration": true, // Whether to generate declaration files (.d.ts).
+    "preserveWatchOutput": true, // This option allows preserving previously compiled files in watch mode, avoiding recompilation caused by deleting changed files during incremental compilation.
+    "removeComments": true, // Whether to remove comments. Can improve compilation speed and reduce generated file size
+    "allowImportingTsExtensions": true, // Allow importing modules with .ts or .tsx extensions in import statements without explicitly specifying the extension
+    "resolveJsonModule": true, // Allow importing JSON modules
+    "isolatedModules": true, // Let TypeScript treat each file as an independent unit (can speed up compilation)
+    "noEmit": true, // Compiler does not generate any JS files
     "jsx": "react-jsx",
-
+    // Allows TypeScript to better compatible with CommonJS modules. When using the CommonJS module system, exported modules will be wrapped in an object, as CommonJS uses syntax similar to module.exports to export modules.
+    // Some tools and libraries may need to import these CommonJS modules as ES6 modules, in which case the esModuleInterop option can be enabled.
+    // When enabled, you no longer need to use default exports to correctly import CommonJS modules, nor do you need to manually handle require() and module.exports.
+    // This makes the process of importing and using CommonJS modules more concise and convenient.
+    "esModuleInterop": true,
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": true, // Enable all strict type-checking options
+    "strictNullChecks": true, // Perform strict null checks
+    "noImplicitAny": true, // Disallow implicit any type
+    "noUnusedLocals": true, // Eliminate warnings for unused variables
+    "noUnusedParameters": true, // Eliminate warnings for unused parameters
+    "noFallthroughCasesInSwitch": true, // Avoid falling into traps in switch statements
+    "useUnknownInCatchVariables": false, // When true, variables declared in catch blocks are treated as unknown instead of the default any.
+    "baseUrl": ".",
+    /* alias */
+    "paths": {
+      "@/*": ["src/*"],
+      "#/*": ["types/*"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "test", "types/**/*.ts", "*.json", "**.*js"],
+  "exclude": ["node_modules", "dist"],
+  "types": ["node", "vite/client"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
