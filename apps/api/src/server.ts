@@ -12,7 +12,6 @@ const port = Number(process.env.PORT) || 3000;
 server.register(fastifyCors, {
   origin: [env.FRONTEND_URL as string],
   methods: ['POST', 'GET','DELETE', 'PUT'],
-  // credentials: true,
 });
 
 console.log(env.FRONTEND_URL)
