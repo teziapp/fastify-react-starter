@@ -83,6 +83,7 @@ export const authRouter = (
 
         reply.setCookie("session", jwtToken, {
           httpOnly: true,
+          domain: env.FRONTEND_URL,
           secure: true,
           sameSite: "none",
           path: "/",
