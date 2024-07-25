@@ -28,7 +28,6 @@ export const authRouter = (
 
     reply.clearCookie("session", {
       path: "/",
-      domain: new URL(env.FRONTEND_URL as string).hostname,
       secure: true,
       httpOnly: true,
       sameSite: "none",
@@ -69,7 +68,6 @@ export const authRouter = (
         }
 
         let user = await getUserByEmail(userInfo.email);
-
         if (!user[0]?.id) {
           user = await addNewUser({
             name: userInfo.name,
@@ -78,14 +76,16 @@ export const authRouter = (
             profilePicture: userInfo.picture,
           });
         }
-        const jwtToken = fastify.jwt.sign({ user }, { expiresIn: "7d" });
+        const jwtToken = fastify.jwt.sign(
+          { user: Array.isArray(user) ? user[0] : user },
+          { expiresIn: "7d" }
+        );
 
         reply.setCookie("session", jwtToken, {
           httpOnly: true,
           secure: true,
           sameSite: "none",
           path: "/",
-          domain: new URL(env.FRONTEND_URL as string).hostname,
         });
 
         reply.redirect(`${env.FRONTEND_URL}/auth/success`);
