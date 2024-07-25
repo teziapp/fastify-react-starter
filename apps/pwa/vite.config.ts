@@ -5,7 +5,7 @@ import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  base: "./",
+  base: "/",
   esbuild: {
     // drop: ['console', 'debugger'],
   },
