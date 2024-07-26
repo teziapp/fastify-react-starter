@@ -9,6 +9,9 @@
         "format": "prettier --write \"**/*.{ts,tsx,md}\""
     },
     "devDependencies": {
+		"@biomejs/biome": "^1.7.3",
+		"@repo/eslint-config": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
         "prettier": "^3.2.5",
         "turbo": "^2.0.4",
         "typescript": "^5.4.5"
