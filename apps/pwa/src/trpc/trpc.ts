@@ -3,6 +3,7 @@ import {
   createTRPCReact,
   httpBatchLink,
   httpLink,
+  loggerLink,
   splitLink,
 } from "@trpc/react-query";
 import { ApiRouter } from "../../../api/src/router.trpc";
@@ -35,6 +36,7 @@ export const queryClient = new QueryClient({
 
 export const trpcClient = trpc.createClient({
   links: [
+    loggerLink(),
     // customLink,
     splitLink({
       condition(op) {

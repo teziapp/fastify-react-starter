@@ -1,30 +1,25 @@
 // useState is not needed for client side rendering. Needed only for SSR.
 // import { useState } from "react";
-import { createTRPCProxyClient, httpBatchLink, splitLink } from "@trpc/client";
-import { httpLink } from "@trpc/client/links/httpLink";
+import { createTRPCClient, httpBatchLink, loggerLink, splitLink, unstable_httpSubscriptionLink } from "@trpc/client";
 import { ApiRouter } from "../../../api/src/router.trpc";
 
 const url = `${import.meta.env.VITE_BE_URL}/v1`;
 
-export const trpcFetch = createTRPCProxyClient<ApiRouter>({
+export const trpcFetch = createTRPCClient<ApiRouter>({
   links: [
+    loggerLink(),
     // customLink,
     splitLink({
       condition(op) {
         // check for context property `skipBatch`
-        return op.context.skipBatch === true;
+        return op.type === "subscription";
       },
       // when condition is true, use normal request
-      true: httpLink({
-        fetch: (url, options) =>
-          fetch(url, {
-            ...options,
-            credentials: "include",
-          }),
+      true: unstable_httpSubscriptionLink({
         url,
-        // headers:({op}) => ({
-        //   'Authorization': `Bearer ${userObjCache.getItem()?.token}`
-        // })
+        eventSourceOptions: {
+          withCredentials: true,
+        }
       }),
       // when condition is false, use batching
       false: httpBatchLink({
