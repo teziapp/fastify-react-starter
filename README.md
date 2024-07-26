@@ -50,14 +50,14 @@ fastify-react-starter/
 
    Create `.env` files at the root and in the `api` directory:
 
-   Root `.env`:
+   Root `.env`[.env]:
    ```
    ENVIRONMENT='dev'
    FRONTEND_URL=http://localhost:5173
    VITE_BE_URL=http://localhost:3000
    ```
 
-   `api/.env`:
+   (`api/.env`)[/api/.env]:
    ```
    ENVIRONMENT='dev'
    DB_URL=postgres://postgres:postgres@localhost:5432/boilerplate
@@ -121,3 +121,36 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Zustand](https://github.com/pmndrs/zustand)
 - [Orchid ORM](https://github.com/romeerez/orchid-orm)
 - [zod](https://github.com/colinhacks/zod)
+
+
+# Todos:
+
+## Backend
+[ ] Figure out how to get & use secure-session https://www.npmjs.com/package/@fastify/secure-session
+[ ] Implement rate limiting.
+[ ] Logs transport to FileSystem / Database.
+[ ] Add swagger docs.
+[ ] Add initiation migration file to apply following to db
+    [ ] RLS for proper multi-tenancy security
+    [ ] Database timezone setup.
+    [ ] Check if present user has all access like dropping tables, etc... dont load the app.
+[ ] Check & Force backend for proper timezone. (On both server & database)
+
+## Frontend
+[ ] Option to make Form persistent on page-reloads.
+[ ] Make it PWA.
+
+## Common
+[ ] Push Notifications
+[ ] Testing
+[ ] Auto version on commits.
+[ ] Feature flags.
+[ ] A/B Testing.
+[ ] Github Actions for CI/CD.
+[ ] Obersavability & Monitoring.
+
+# Examples for reference:
+- https://github.com/Cookie-gg/trpc-fastify-prisma/blob/master/package.json
+- https://github.com/maybemaby/fastify-trpc-next
+- https://github.com/josephgodwinkimani/tRPC-fastify-starter
+- https://github.com/zongzheng123/fastify-trpc-swagger

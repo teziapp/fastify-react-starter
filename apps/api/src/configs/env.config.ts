@@ -14,7 +14,7 @@ const envDefaultFields = z
     GOOGLE_CLIENT_SECRET: z.string().min(1),
   })
   .refine((env) => {
-    if (env.ENVIRONMENT !== "prod" && env.DB_TEST_URL) {
+    if (isProd && env.DB_TEST_URL) {
       return {
         path: "DB_TEST_URL",
         message: "DB_TEST_URL is not allowed in production",
