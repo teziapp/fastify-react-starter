@@ -33,20 +33,21 @@ fastify-react-starter/
 
 ## 🛠️ Getting Started
 
-1. **Clone the repository:**
+Run this command to get started
 
-   ```bash
-   git clone https://github.com/teziapp/fastify-react-starter.git
-   cd fastify-react-starter
-   ```
+```bash
+git clone https://github.com/teziapp/fastify-react-starter.git
+cd fastify-react-starter
+pnpm i
+```
 
-2. **Install dependencies:**
+-> Run this to setup
+```bash
+pnpm run setup
+```
+OR manually
 
-   ```bash
-   pnpm i
-   ```
-
-3. **Set up environment variables:**
+1. **Set up environment variables:**
 
    Create `.env` files at the root and in the `api` directory:
 
@@ -69,20 +70,20 @@ fastify-react-starter/
    JWT_SECRET=your_jwt_secret
    ```
 
-4. **Set up the database:**
+2. **Set up the database:**
 
    ```bash
    pnpm run db create
    pnpm run db migrate up
    ```
 
-5. **Start the development server:**
+3. **Start the development server:**
 
    ```bash
    pnpm run dev
    ```
 
-6. **Build for production:**
+4. **Build for production:**
 
    ```bash
    pnpm run build

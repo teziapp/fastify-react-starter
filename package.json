@@ -6,10 +6,13 @@
         "dev": "dotenv -e ./.env turbo dev",
         "lint": "turbo lint",
         "db": "dotenv -e ./.env turbo db -- --",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "setup": "ts-node ./scripts/setup.ts"
     },
     "devDependencies": {
 		"@biomejs/biome": "^1.7.3",
+        "@clack/prompts": "^0.7.0",
+        "@iarna/toml": "^2.2.5",
 		"@repo/eslint-config": "workspace:*",
 		"@repo/typescript-config": "workspace:*",
         "prettier": "^3.2.5",
