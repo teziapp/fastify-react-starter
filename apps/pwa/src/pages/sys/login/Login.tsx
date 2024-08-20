@@ -10,6 +10,7 @@ import RegisterForm from "./RegisterForm";
 import ResetForm from "./ResetForm";
 import { Logo } from "../../../components/Logo/Logo";
 import { useUserInfo } from "../../../store/userStore";
+import { APP_NAME } from "@/appConfig";
 
 export function Login() {
   const token = useUserInfo();
@@ -33,7 +34,7 @@ export function Login() {
         <Flex gap={"small"} align="center">
           <Logo className="h-14 w-14" />
           <div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl">
-            Your app title
+            {APP_NAME}
           </div>
         </Flex>
         <img
