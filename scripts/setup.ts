@@ -30,35 +30,38 @@ async function promptForGoogleClientCredentials() {
 
 	const envPath = path.join(__dirname, "..", "apps", "api", ".env");
 
-	if (!fs.existsSync(envPath)) {
-		console.log(
-			"\x1b[33mNow, we will set up authentication for your app using Google OAuth2. \nGo to https://console.cloud.google.com/, create a new project and set up OAuth consent screen.\nThen, go to Credentials > OAuth client ID and create a new client ID.\nPaste the client ID and client secret below. \n\nMore info: https://developers.google.com/workspace/guides/configure-oauth-consent#:~:text=Go%20to%20OAuth%20consent%20screen,sensitive%20scopes%2C%20and%20restricted%20scopes.\x1b[0m",
-		);
-		const clientId = await prompt(
-			"Enter your Google Client ID (enter to skip)",
-			"",
-		);
-		const clientSecret = await prompt(
-			"Enter your Google Client Secret (enter to skip)",
-			"",
-		);
+	console.log(
+		"\x1b[33mNow, we will set up authentication for your app using Google OAuth2. \nGo to https://console.cloud.google.com/, create a new project and set up OAuth consent screen.\nThen, go to Credentials > OAuth client ID and create a new client ID.\nPaste the client ID and client secret below. \n\nMore info: https://developers.google.com/workspace/guides/configure-oauth-consent#:~:text=Go%20to%20OAuth%20consent%20screen,sensitive%20scopes%2C%20and%20restricted%20scopes.\x1b[0m",
+	);
+	const defaultClientId = "your_google_client_id";
+	const defaultClientSecret = "your_google_client_secret";
+	const clientId = await prompt(
+		"Enter your Google Client ID (default: your_google_client_id)",
+		defaultClientId,
+	);
+	const clientSecret = await prompt(
+		"Enter your Google Client Secret (enter to skip)",
+		"defaultClientSecret",
+	);
 
-		try {
-			fs.writeFileSync(
+	try {
+		if (fs.existsSync(envPath)) {
+			let envContent = fs.readFileSync(envPath, 'utf-8');
+			envContent = envContent.replace(/GOOGLE_CLIENT_ID=.*/, `GOOGLE_CLIENT_ID=${clientId}`);
+			envContent = envContent.replace(/GOOGLE_CLIENT_SECRET=.*/, `GOOGLE_CLIENT_SECRET=${clientSecret}`);
+			fs.writeFileSync(envPath, envContent);
+		} else {
+			fs.appendFileSync(
 				envPath,
 				`GOOGLE_CLIENT_ID=${clientId}\nGOOGLE_CLIENT_SECRET=${clientSecret}\n`,
 			);
-			console.log(
-				"\x1b[33m.env file created with Google Client ID and Client Secret.\x1b[0m",
-			);
-		} catch (error) {
-			console.error("\x1b[31mError creating .env file:", error, "\x1b[0m");
-			cancel("Operation cancelled.");
 		}
-	} else {
 		console.log(
-			"\x1b[31m.env file already exists. Skipping creation.\x1b[0m",
+			"\x1b[33m.env file created with Google Client ID and Client Secret.\x1b[0m",
 		);
+	} catch (error) {
+		console.error("\x1b[31mError creating .env file:", error, "\x1b[0m");
+		cancel("Operation cancelled.");
 	}
 
 	outro(".env updated with Google Client ID and Client Secret.");
