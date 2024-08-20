@@ -41,7 +41,7 @@ async function promptForGoogleClientCredentials() {
 	);
 	const clientSecret = await prompt(
 		"Enter your Google Client Secret (enter to skip)",
-		"defaultClientSecret",
+		defaultClientSecret
 	);
 
 	try {
