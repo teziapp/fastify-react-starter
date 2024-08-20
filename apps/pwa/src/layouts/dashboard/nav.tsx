@@ -14,6 +14,7 @@ import { ThemeLayout } from "../../types/enum";
 import MotionContainer from "../../components/animate/motion-container";
 import { Logo } from "../../components/Logo/Logo";
 import Scrollbar from "../../components/scrollbar";
+import { APP_NAME } from "@/appConfig";
 
 const slideInLeft = varSlide({ distance: 10 }).inLeft;
 
@@ -105,7 +106,7 @@ export default function Nav(props: Props) {
                 className="ml-2 text-xl font-bold"
                 style={{ color: colorPrimary }}
               >
-                Your app title
+                {APP_NAME}
               </span>
             </m.div>
           )}
