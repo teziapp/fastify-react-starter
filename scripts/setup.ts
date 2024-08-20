@@ -134,6 +134,8 @@ JWT_SECRET=${generateSecureRandomString(32)}`;
 async function main() {
   intro("Setting up your Fastify-React Boilerplate project...");
 
+	// first build the project
+	await executeCommand("pnpm run build");
   await createEnvFiles();
   await setupDatabase();
   await promptForGoogleClientCredentials();
