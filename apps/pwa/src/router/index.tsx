@@ -77,31 +77,15 @@ export const RouteObjectWithNavbar: RouteObjectWithNavbar[] = [
         index: true,
         path: "/auth/login",
         lazy: async () => {
-          const { Login } = await import("../pages/sys/login/Login");
-          return { element: <PageWrapper component={<Login />} /> };
+          const { Login } = await import("../pages/auth/Login.page");
+          return { element: <Login />  };
         },
         navPath: "/auth/login",
         navLabel: "Login",
         title: "Login",
         subheader: "Login",
         showInNav: false,
-      },
-      {
-        caseSensitive: false,
-        index: true,
-        path: "/auth/success",
-        lazy: async () => {
-          const { AuthSuccess } = await import(
-            "../pages/sys/login/AuthSuccess"
-          );
-          return { element: <AuthSuccess /> };
-        },
-        navPath: "/auth/success",
-        navLabel: "Auth Redirect",
-        title: "Auth Redirect",
-        subheader: "Auth Redirect",
-        showInNav: false,
-      },
+      }
     ],
   },
   {

@@ -155,3 +155,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - https://github.com/maybemaby/fastify-trpc-next
 - https://github.com/josephgodwinkimani/tRPC-fastify-starter
 - https://github.com/zongzheng123/fastify-trpc-swagger
+
+
+- to generate the db migration:
+```bash
+nr db g migration_name
+```

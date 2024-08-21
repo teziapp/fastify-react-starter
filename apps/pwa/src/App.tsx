@@ -5,7 +5,6 @@ import GlobalDrawer from "./components/globalDrawer/GlobalDrawer";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { MotionLazy } from "./components/animate/motion-lazy";
-import { META_TITLE, META_DESCRIPTION, APP_FAVICON } from "./appConfig";
 
 export const App = () => {
   return (
@@ -13,9 +12,8 @@ export const App = () => {
       <AntdApp>
         <MotionLazy>
           <Helmet>
-            <title>{META_TITLE}</title>
-            <meta name="description" content={META_DESCRIPTION} />
-            <link rel="icon" href={APP_FAVICON} />
+            <title>Tezi React-fastify boilerplate</title>
+            {/* <link rel="icon" href={"path to your favicon"} /> */}
           </Helmet>
           <GlobalDrawer />
           <RouterProvider router={router} />

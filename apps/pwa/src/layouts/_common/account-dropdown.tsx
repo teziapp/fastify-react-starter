@@ -5,9 +5,9 @@ import { NavLink } from "react-router-dom";
 
 import { useThemeToken } from "../../theme/hooks";
 import { useUserActions, useUserInfo } from "../../store/userStore";
-import { useRouter } from "../../router/hooks";
 import { IconButton } from "../../components/icon";
 import { useLoginStateContext } from "../../pages/sys/login/providers/LoginStateProvider";
+import { trpc } from "@/trpc/trpc";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -15,24 +15,19 @@ const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
  * Account Dropdown
  */
 export default function AccountDropdown() {
-  const { replace } = useRouter();
   const { name, email, profilePicture } = useUserInfo();
   const { clearUserInfoAndToken } = useUserActions();
   const { backToLogin } = useLoginStateContext();
-  const logout = async () => {
-    try {
-      await fetch(`${import.meta.env.VITE_BE_URL}/auth/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
+	const utils = trpc.useUtils();
+
+  const logout = trpc.auth.logout.useMutation({
+		onSuccess() {
+			utils.auth.profile.reset()
       clearUserInfoAndToken();
       backToLogin();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      replace("/auth/login");
-    }
-  };
+		},
+	})
+  
   const { colorBgElevated, borderRadiusLG, boxShadowSecondary } =
     useThemeToken();
 
@@ -74,7 +69,9 @@ export default function AccountDropdown() {
     {
       label: <button className="font-bold text-warning">{"Logout"}</button>,
       key: "3",
-      onClick: logout,
+      onClick: () => {
+        logout.mutate()
+      },
     },
   ];
 

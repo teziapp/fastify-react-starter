@@ -3,22 +3,21 @@ import helmet from "@fastify/helmet";
 import sensible from "@fastify/sensible";
 import { app } from "./app";
 import { env } from "./configs/env.config";
+import { googleAuth } from "./auth/google-auth";
 
 export const server = app;
 
 const port = Number(process.env.PORT) || 3000;
 
 // TODO: Figure out how to get secure-session https://www.npmjs.com/package/@fastify/secure-session
-server.register(fastifyCors, {
-  origin: [env.FRONTEND_URL as string],
-  methods: ["POST", "GET", "DELETE", "PUT"],
-  credentials: true,
-});
-
-console.log(env.FRONTEND_URL);
-server.register(helmet);
-
-server.register(sensible);
+server
+  .register(fastifyCors, {
+    origin: [env.FRONTEND_URL as string],
+    methods: ["POST", "GET", "DELETE", "PUT"],
+    credentials: true,
+  })
+  .register(helmet)
+  .register(sensible)
 
 // Run the server!
 server.listen({ port: port, host: "0.0.0.0" }, function (err, address) {

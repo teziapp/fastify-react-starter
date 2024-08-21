@@ -8,15 +8,15 @@ import { LoginStateProvider } from "../sys/login/providers/LoginStateProvider";
 import RegisterForm from "../sys/login/RegisterForm";
 import ResetForm from "../sys/login/ResetForm";
 import { useThemeToken } from "../../theme/hooks";
-import { useUserInfo } from "../../store/userStore";
 import { Logo } from "../../components/Logo/Logo";
-import { APP_NAME } from "../../appConfig";
+import { useUserToken } from "@/store/userStore";
 
 export function Login() {
-  const token = useUserInfo();
+	const {exp} = useUserToken()
+  console.log("hello Karan")
   const { colorBgElevated } = useThemeToken();
 
-  if (token.id) {
+  if (exp) {
     return <Navigate to={"/"} replace />;
   }
 
@@ -34,7 +34,7 @@ export function Login() {
         <Flex gap={"small"} align="center">
           <Logo className="h-14 w-14" />
           <div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl">
-            {APP_NAME}
+            Zeon
           </div>
         </Flex>
         <img

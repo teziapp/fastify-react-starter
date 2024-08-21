@@ -12,7 +12,7 @@ function LoginForm() {
   if (loginState !== LoginStateEnum.LOGIN) return null;
 
   const handleGoogleSignIn = () => {
-    window.open(import.meta.env.VITE_BE_URL + "/auth/google", "_self");
+    window.open(import.meta.env.VITE_BE_URL + "/auth/login/google", "_self");
   };
 
   return (

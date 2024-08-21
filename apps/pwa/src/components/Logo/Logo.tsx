@@ -1,7 +1,6 @@
 import { Flex, FlexProps, theme, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { CSSProperties } from "react";
-import { APP_NAME } from "../../appConfig";
 
 type LogoProps = {
   color?: CSSProperties["color"];
@@ -45,7 +44,7 @@ export const Logo = ({
             borderRadius,
           }}
         >
-          {APP_NAME}
+          My App
         </Typography.Title>
       </Flex>
     </Link>
