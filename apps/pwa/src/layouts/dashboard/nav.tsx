@@ -105,7 +105,7 @@ export default function Nav(props: Props) {
                 className="ml-2 text-xl font-bold"
                 style={{ color: colorPrimary }}
               >
-                Zeon
+                your app title
               </span>
             </m.div>
           )}
