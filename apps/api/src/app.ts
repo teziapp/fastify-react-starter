@@ -1,16 +1,15 @@
 import cookiePlugin from "@fastify/cookie";
 import fastifyJwt from "@fastify/jwt";
-import oauthPlugin from "@fastify/oauth2";
 import {
   FastifyTRPCPluginOptions,
   fastifyTRPCPlugin,
 } from "@trpc/server/adapters/fastify";
 import fastify from "fastify";
-import { authRouter } from "./auth.router";
 import { env } from "./configs/env.config";
 import { logsConfig } from "./configs/logger.config";
 import { trpcContext } from "./context.trpc";
 import { ApiRouter, trpcRouter } from "./router.trpc";
+import { googleAuth } from "./auth/google-auth";
 
 export const app = fastify({
   logger: logsConfig[env.ENVIRONMENT],
@@ -35,26 +34,8 @@ app.setErrorHandler(function (error, _request, reply) {
   }
 });
 
-app.register(cookiePlugin);
-app.register(fastifyJwt, { secret: env.JWT_SECRET as string });
-app.register(oauthPlugin, {
-  name: "googleOAuth2",
-  scope: ["profile", "email"],
-  cookie: {
-    secure: true,
-  },
-  credentials: {
-    auth: oauthPlugin.GOOGLE_CONFIGURATION,
-    client: {
-      id: env.GOOGLE_CLIENT_ID as string,
-      secret: env.GOOGLE_CLIENT_SECRET as string,
-    },
-  },
-  startRedirectPath: "/auth/google",
-  callbackUri: env.VITE_BE_URL + "/auth/google/callback",
-});
+app.register(cookiePlugin).register(fastifyJwt, { secret: env.JWT_SECRET as string }).register(googleAuth)
 
-app.register(authRouter, { prefix: "/auth" });
 
 app.register(fastifyTRPCPlugin, {
   prefix: "/v1",

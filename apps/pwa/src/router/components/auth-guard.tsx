@@ -1,26 +1,42 @@
 import { useCallback, useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { trpc } from "@/trpc/trpc";
+import { useUserActions } from "../../store/userStore";
 
-import { useRouter } from "../hooks";
-import { useUserToken } from "../../store/userStore";
+import { usePathname, useRouter } from "../hooks";
 import PageError from "../../pages/Error/PageError";
 
 type Props = {
   children: React.ReactNode;
 };
+
 export default function AuthGuard({ children }: Props) {
   const router = useRouter();
-  const { exp } = useUserToken();
+  const pathname = usePathname();
+  const profile = trpc.auth.profile.useQuery(undefined,{
+    retry: 2,
+    staleTime: Infinity,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    refetchOnMount: true,
+  });
+  const { setUserInfo } = useUserActions();
 
   const check = useCallback(() => {
-    if (!exp) {
-      router.replace("/auth/login");
+    if (profile.isError || (!profile.data && profile.isFetched)) {
+      if (pathname !== "/auth/login") {
+        router.replace("/auth/login");
+      }
+    } else if (profile.data) {
+      setUserInfo(profile.data);
     }
-  }, [router, exp]);
+  }, [profile.isLoading]);
 
   useEffect(() => {
-    check();
-  }, [check]);
+    if (!profile.isLoading) {
+      check();
+    }
+  }, [check, profile.isLoading]);
 
   return (
     <ErrorBoundary FallbackComponent={PageError}>{children}</ErrorBoundary>

@@ -7,7 +7,9 @@
         "lint": "turbo lint",
         "db": "dotenv -e ./.env turbo db -- --",
         "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-        "setup": "ts-node ./scripts/setup.ts"
+        "setup": "ts-node ./scripts/setup.ts",
+        "clean": "find . -name 'dist' -type d -prune -exec rm -rf '{}' +",
+        "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
     },
     "devDependencies": {
 		"@biomejs/biome": "^1.7.3",

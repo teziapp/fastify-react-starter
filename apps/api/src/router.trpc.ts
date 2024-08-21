@@ -1,12 +1,10 @@
 import { inferRouterOutputs } from "@trpc/server";
 // import * as packageJson from "../package.json";
 import { publicProcedure, router, protectedProcedure } from "./context.trpc";
+import { authApi } from "./auth/auth-api";
 
 export const trpcRouter = router({
-  user: protectedProcedure.query(async ({ ctx }) => {
-    const user = ctx.user;
-    return user;
-  }),
+  auth: authApi,
   version: publicProcedure.query(() => ({
     // beVersion: packageJson.version,
     // forceLogoutBelowFrontendVersion:

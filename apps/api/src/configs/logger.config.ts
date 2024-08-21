@@ -6,16 +6,15 @@ export const logsConfig: Record<
 	Environment,
 	FastifyHttpOptions<Server, FastifyBaseLogger>["logger"]
 > = {
-	dev: true,
-	// {
-	// 	transport: {
-	// 		target: "pino-pretty",
-	// 		options: {
-	// 			translateTime: "HH:MM:ss Z",
-	// 			ignore: "pid,hostname",
-	// 		},
-	// 	},
-	// },
+	dev: {
+		transport: {
+			target: "pino-pretty",
+			options: {
+				translateTime: "HH:MM:ss Z",
+				ignore: "pid,hostname",
+			},
+		},
+	},
 	prod: true,
 	staging: true,
 	test: false,
