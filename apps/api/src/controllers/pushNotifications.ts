@@ -30,6 +30,7 @@ export async function sendNotificationToAll(title: string, body: string) {
 // Schedule a notification every 5 seconds
 export function scheduleFrequentNotification() {
   scheduleJob('*/5 * * * * *', async () => {
+    console.log('Sending notification');
     await sendNotificationToAll('Frequent Update', 'Here is your notification every 5 seconds!');
   });
 }

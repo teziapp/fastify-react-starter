@@ -4,10 +4,21 @@ import { clientsClaim } from 'workbox-core';
 
 declare let self: ServiceWorkerGlobalScope & typeof globalThis & { __WB_MANIFEST: any };
 
-self.skipWaiting();
+// Use self.skipWaiting() only if it exists
 clientsClaim();
 
+function sendMessageToClients(message:any) {
+  self.clients?.matchAll().then(clients => {
+    clients.forEach(client => client.postMessage(message));
+  }).catch(() => {
+    // Fallback if matchAll is not available
+    self.registration.active?.postMessage(message);
+  });
+}
+
 precacheAndRoute(self.__WB_MANIFEST);
+
+let storedNotification:any = null;
 
 self.addEventListener('push', (event) => {
   const data = event.data?.json() ?? {};
@@ -19,9 +30,38 @@ self.addEventListener('push', (event) => {
     data: data.url || '/',
   };
 
+  storedNotification = { title, ...options };
+  // Send message to all clients (main thread)
+  sendMessageToClients({
+    type: 'PUSH_RECEIVED',
+    notification: { title, ...options }
+  });
+
   event.waitUntil(
     self.registration.showNotification(title, options)
+      .then(() => console.log('Notification shown')) // Add this log
+      .catch(error => console.error('Error showing notification:', error)) // Add error logging
   );
+});
+
+self.addEventListener('message', (event) => {
+  try {
+    console.log('Message event received:', event.data); // Add this log
+    if (event.data && event.data.type === 'GET_STORED_NOTIFICATION') {
+      if (storedNotification) {
+        console.log('Sending stored notification:', storedNotification); // Add this log
+        event.source?.postMessage({
+          type: 'PUSH_RECEIVED',
+          payload: storedNotification
+        });
+        storedNotification = null; // Clear the stored notification after sending
+      } else {
+        console.log('No stored notification available'); // Add this log
+      }
+    }
+  } catch (error) {
+    console.error('Error in message event handler:', error);
+  }
 });
 
 self.addEventListener('notificationclick', (event) => {
@@ -31,7 +71,7 @@ self.addEventListener('notificationclick', (event) => {
   );
 });
 
-async function subscribeToPushNotifications() {
+export async function subscribeToPushNotifications() {
   try {
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.subscribe({
@@ -48,11 +88,9 @@ async function subscribeToPushNotifications() {
       body: JSON.stringify(subscription),
     });
     
-    console.log('Push notification subscription successful');
   } catch (error) {
     console.error('Failed to subscribe to push notifications:', error);
   }
 }
 
-// Call this function when you want to request permission and subscribe
-subscribeToPushNotifications();
+// subscribeToPushNotifications();

@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import reactSWC from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { RegisterSWData, VitePWA, VitePWAOptions } from "vite-plugin-pwa";
+import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
 const manifestForPlugIn: Partial<VitePWAOptions> = {
   devOptions: {
@@ -105,6 +105,7 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
   strategies: 'injectManifest',
   srcDir: 'src',
   filename: 'sw.ts',
+  injectRegister: null,
 };
 
 const replaceOptions = {
@@ -139,7 +140,6 @@ export default defineConfig({
     plugins: () => [reactSWC()],
     format: "es",
   },
-
   build: {
     target: "esnext",
     minify: "esbuild",
@@ -148,6 +148,22 @@ export default defineConfig({
         drop_console: true,
         drop_debugger: true,
       },
+    },
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        sw: path.resolve(__dirname, 'src/sw.ts'),
+      },
+      output: {
+        entryFileNames: (assetInfo) => {
+          return assetInfo.name === 'sw' ? 'sw.js' : 'assets/[name]-[hash].js';
+        },
+      },
+    },
+  },
+  server: {
+    headers: {
+      'Service-Worker-Allowed': '/',
     },
   },
 });

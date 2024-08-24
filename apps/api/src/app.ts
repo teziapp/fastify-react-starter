@@ -12,7 +12,8 @@ import { ApiRouter, trpcRouter } from "./router.trpc";
 import { googleAuth } from "./auth/google-auth";
 import webpush from 'web-push';
 import { PushSubscription } from 'web-push';
-import { addSubscription } from './controllers/pushNotifications';
+import { addSubscription, scheduleFrequentNotification } from './controllers/pushNotifications';
+
 
 export const app = fastify({
   logger: logsConfig[env.ENVIRONMENT],
@@ -53,6 +54,7 @@ const pushSubscriptions = new Set<PushSubscription>();
 app.post('/subscribe', async (request, reply) => {
   const subscription = request.body as PushSubscription;
   addSubscription(subscription);
+  scheduleFrequentNotification();
   reply.send({ success: true });
 });
 
@@ -62,7 +64,6 @@ app.post<{
   Body: { title: string; body: string }
 }>('/send-notification', async (request, reply) => {
   const { title, body } = request.body;
-  console.log(pushSubscriptions)
   for (const subscription of pushSubscriptions) {
     try {
       await webpush.sendNotification(subscription, JSON.stringify({ title, body }));

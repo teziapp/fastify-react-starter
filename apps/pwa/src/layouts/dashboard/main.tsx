@@ -1,6 +1,7 @@
 import { Content } from "antd/es/layout/layout";
 import { CSSProperties, forwardRef } from "react";
 import { Outlet } from "react-router-dom";
+import ServiceWorkerUpdateDialog from "../../components/ServiceWorkerUpdate";
 
 import {
   NAV_WIDTH,
@@ -41,13 +42,8 @@ const Main = forwardRef<HTMLDivElement, Props>(({}, ref) => {
           themeStretch ? "" : "xl:max-w-screen-xl"
         }`}
       >
-        {/* {multiTab ? (
-          <MultiTabsProvider>
-            <MultiTabs offsetTop={offsetTop} />
-          </MultiTabsProvider>
-        ) : ( */}
         <Outlet />
-        {/* )} */}
+        <ServiceWorkerUpdateDialog />
       </div>
     </Content>
   );
