@@ -33,14 +33,18 @@
     "fastify": "^4.27.0",
     "fastify-plugin": "^4.5.1",
     "langchain": "^0.2.5",
+    "node-schedule": "^2.1.1",
     "orchid-orm": "^1.31.7",
     "orchid-orm-schema-to-zod": "^0.8.8",
+    "web-push": "^3.6.7",
     "zod-to-json-schema": "^3.23.0"
   },
   "devDependencies": {
     "@swc/cli": "^0.3.12",
     "@swc/core": "^1.6.3",
     "@types/node": "^20.12.12",
+    "@types/node-schedule": "^2.1.7",
+    "@types/web-push": "^3.6.3",
     "esbuild": "^0.21.3",
     "nodemon": "^3.1.4",
     "pino-pretty": "^11.0.0",

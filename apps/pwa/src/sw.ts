@@ -39,8 +39,8 @@ async function subscribeToPushNotifications() {
       applicationServerKey: 'BLA70jg5Wgi6XD6BAElOfW7YXcQ3l3iFRzyPj5AV5ZuSr_uTugv-9hbgXwfPhuw_JfbDAqn-Fl5nKSvnQpjFV8g'
     });
     
-    // Send the subscription object to your server
-    await fetch('/api/push-subscription', {
+    // Update the endpoint to match your server
+    await fetch('http://localhost:3000/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
