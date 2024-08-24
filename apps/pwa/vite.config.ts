@@ -5,7 +5,7 @@ import reactSWC from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { RegisterSWData, VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
-const manifestForPlugIn:Partial<VitePWAOptions> = {
+const manifestForPlugIn: Partial<VitePWAOptions> = {
   devOptions: {
     enabled: true,
     type: "module",
@@ -100,7 +100,11 @@ const manifestForPlugIn:Partial<VitePWAOptions> = {
         ]
       }
     }
-  }
+  },
+  includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+  strategies: 'injectManifest',
+  srcDir: 'src',
+  filename: 'sw.ts',
 };
 
 const replaceOptions = {
