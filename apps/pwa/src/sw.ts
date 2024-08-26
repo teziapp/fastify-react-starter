@@ -14,18 +14,7 @@ interface Notification {
   data: string;
 }
 
-function sendMessageToClients(message: { type: string; notification?: Notification }): void {
-  self.clients.matchAll().then(clients => {
-    clients.forEach(client => client.postMessage(message));
-  }).catch(error => {
-    console.error('Error sending message to clients:', error);
-    self.registration.active?.postMessage(message);
-  });
-}
-
 precacheAndRoute(self.__WB_MANIFEST);
-
-let storedNotification: Notification | null = null;
 
 self.addEventListener('push', (event: PushEvent) => {
   const data = event.data?.json() ?? {};
@@ -37,30 +26,16 @@ self.addEventListener('push', (event: PushEvent) => {
     data: data.url || '/',
   };
 
-  storedNotification = notification;
-  sendMessageToClients({ type: 'PUSH_RECEIVED', notification });
-
   event.waitUntil(
-    self.registration.showNotification(notification.title, notification)
+    self.registration.showNotification(notification.title, {
+      body: notification.body,
+      icon: notification.icon,
+      badge: notification.badge,
+      data: notification.data,
+    })
       .then(() => console.log('Notification shown'))
       .catch(error => console.error('Error showing notification:', error))
   );
-});
-
-self.addEventListener('message', (event: ExtendableMessageEvent) => {
-  if (event.data?.type === 'GET_STORED_NOTIFICATION') {
-    console.log('GET_STORED_NOTIFICATION message received');
-    if (storedNotification) {
-      console.log('Sending stored notification:', storedNotification);
-      event.source?.postMessage({
-        type: 'PUSH_RECEIVED',
-        payload: storedNotification
-      });
-      storedNotification = null;
-    } else {
-      console.log('No stored notification available');
-    }
-  }
 });
 
 self.addEventListener('notificationclick', (event: NotificationEvent) => {
@@ -77,7 +52,7 @@ export async function subscribeToPushNotifications(): Promise<void> {
       userVisibleOnly: true,
       applicationServerKey: 'BLA70jg5Wgi6XD6BAElOfW7YXcQ3l3iFRzyPj5AV5ZuSr_uTugv-9hbgXwfPhuw_JfbDAqn-Fl5nKSvnQpjFV8g'
     });
-    
+
     const response = await fetch('http://localhost:3000/subscribe', {
       method: 'POST',
       headers: {
@@ -89,7 +64,7 @@ export async function subscribeToPushNotifications(): Promise<void> {
     if (!response.ok) {
       throw new Error('Failed to send subscription to server');
     }
-    
+
     console.log('Successfully subscribed to push notifications');
   } catch (error) {
     console.error('Failed to subscribe to push notifications:', error);

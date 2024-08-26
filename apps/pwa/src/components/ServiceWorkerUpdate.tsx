@@ -32,11 +32,8 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
         setUpdateSW(() => swUpdater);
 
         if ('serviceWorker' in navigator) {
-          const registration = await navigator.serviceWorker.ready;
+          await navigator.serviceWorker.ready;
           await subscribeToPushNotifications();
-          registration.active?.postMessage({ type: 'GET_STORED_NOTIFICATION' });
-
-          navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
         }
       } catch (error) {
         console.error('Failed to register service worker:', error);
@@ -45,19 +42,6 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
     };
 
     registerServiceWorker();
-
-    return () => {
-      navigator.serviceWorker.removeEventListener('message', handleServiceWorkerMessage);
-    };
-  }, []);
-
-  const handleServiceWorkerMessage = useCallback((event: MessageEvent) => {
-    if (event.data?.type === 'PUSH_RECEIVED') {
-      const { badge, body, title } = event.data.notification;
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification(title, { body, icon: badge });
-      }
-    }
   }, []);
 
   const handleUpdate = useCallback(() => {
