@@ -32,8 +32,17 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
         setUpdateSW(() => swUpdater);
 
         if ('serviceWorker' in navigator) {
-          await navigator.serviceWorker.ready;
-          await subscribeToPushNotifications();
+          const registration = await navigator.serviceWorker.ready;
+
+          // Check if the user is already subscribed to push notifications
+          const subscription = await registration.pushManager.getSubscription();
+          console.log('subscription', subscription);
+          if (!subscription) {
+            // Subscribe only if the user is not already subscribed
+            await subscribeToPushNotifications();
+          } else {
+            console.log('Already subscribed to push notifications');
+          }
         }
       } catch (error) {
         console.error('Failed to register service worker:', error);

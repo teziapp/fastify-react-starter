@@ -5,8 +5,9 @@ import { clientsClaim } from 'workbox-core';
 declare let self: ServiceWorkerGlobalScope & typeof globalThis & { __WB_MANIFEST: any };
 
 clientsClaim();
+precacheAndRoute(self.__WB_MANIFEST);
 
-interface Notification {
+interface NotificationData {
   title: string;
   body: string;
   icon: string;
@@ -14,11 +15,9 @@ interface Notification {
   data: string;
 }
 
-precacheAndRoute(self.__WB_MANIFEST);
-
 self.addEventListener('push', (event: PushEvent) => {
-  const data = event.data?.json() ?? {};
-  const notification: Notification = {
+  const data = event.data?.json() || {};
+  const notification: NotificationData = {
     title: data.title || 'New Notification',
     body: data.body || 'You have a new notification',
     icon: '/favicon/android-chrome-192x192.png',
@@ -27,12 +26,7 @@ self.addEventListener('push', (event: PushEvent) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification(notification.title, {
-      body: notification.body,
-      icon: notification.icon,
-      badge: notification.badge,
-      data: notification.data,
-    })
+    self.registration.showNotification(notification.title, notification)
       .then(() => console.log('Notification shown'))
       .catch(error => console.error('Error showing notification:', error))
   );
@@ -52,7 +46,7 @@ export async function subscribeToPushNotifications(): Promise<void> {
       userVisibleOnly: true,
       applicationServerKey: 'BLA70jg5Wgi6XD6BAElOfW7YXcQ3l3iFRzyPj5AV5ZuSr_uTugv-9hbgXwfPhuw_JfbDAqn-Fl5nKSvnQpjFV8g'
     });
-
+    
     const response = await fetch('http://localhost:3000/subscribe', {
       method: 'POST',
       headers: {
@@ -64,11 +58,9 @@ export async function subscribeToPushNotifications(): Promise<void> {
     if (!response.ok) {
       throw new Error('Failed to send subscription to server');
     }
-
+    
     console.log('Successfully subscribed to push notifications');
   } catch (error) {
     console.error('Failed to subscribe to push notifications:', error);
   }
 }
-
-// subscribeToPushNotifications();
