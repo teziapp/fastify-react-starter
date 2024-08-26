@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Modal, Button, Typography, Space, message } from "antd";
+import { Modal, Button, Typography, Space, message, Switch } from "antd";
 import { useLocation } from "react-router-dom";
 //@ts-ignore
 import { registerSW } from "virtual:pwa-register";
@@ -7,15 +7,50 @@ import { subscribeToPushNotifications } from "@/sw";
 
 const { Text, Title } = Typography;
 
+export const handleNotificationToggle = async (checked: boolean, updateNotificationsEnabled: (enabled: boolean) => void) => {
+  if (checked) {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
+        await subscribeToPushNotifications();
+        updateNotificationsEnabled(true);
+      } else {
+        console.log('Notification permission denied');
+        updateNotificationsEnabled(false);
+      }
+    } else {
+      console.log('Notifications not supported in this browser');
+      updateNotificationsEnabled(false);
+    }
+  } else {
+    // Unsubscribe from notifications
+    if ('serviceWorker' in navigator) {
+      const registration = await navigator.serviceWorker.ready;
+      const subscription = await registration.pushManager.getSubscription();
+      if (subscription) {
+        await subscription.unsubscribe();
+        registration.active?.postMessage({ type: 'UNSUBSCRIBE_NOTIFICATIONS' });
+        console.log('Notification turned off');
+        updateNotificationsEnabled(false);
+      }
+    }
+  }
+};
+
 const ServiceWorkerUpdateDialog: React.FC = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [updateSW, setUpdateSW] = useState<(() => Promise<void>) | null>(null);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const location = useLocation();
 
   const isUpdateAllowed = useCallback((): boolean => {
     const locationParts = location.pathname.split("/");
     return !["add-new", "edit"].some(part => locationParts.includes(part));
   }, [location]);
+
+  const updateNotificationsEnabled = useCallback((enabled: boolean) => {
+    setNotificationsEnabled(enabled);
+  }, []);
 
   useEffect(() => {
     const registerServiceWorker = async () => {
@@ -34,15 +69,22 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
         if ('serviceWorker' in navigator) {
           const registration = await navigator.serviceWorker.ready;
 
-          // Check if the user is already subscribed to push notifications
+          // Check if notifications are enabled
           const subscription = await registration.pushManager.getSubscription();
-          console.log('subscription', subscription);
-          if (!subscription) {
-            // Subscribe only if the user is not already subscribed
-            await subscribeToPushNotifications();
-          } else {
-            console.log('Already subscribed to push notifications');
+          if (subscription) {
+            setNotificationsEnabled(true);
           }
+
+          navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'PUSH_RECEIVED') {
+              if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(event.data.notification.title, {
+                  body: event.data.notification.body,
+                  icon: event.data.notification.badge,
+                });
+              }
+            }
+          });
         }
       } catch (error) {
         console.error('Failed to register service worker:', error);
@@ -95,6 +137,13 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
           <li>Bug Fixes</li>
           <li>Feature Improvements</li>
         </ul>
+        <Space direction="horizontal">
+          <Text>Enable Notifications</Text>
+          <Switch 
+            checked={notificationsEnabled} 
+            onChange={(checked) => handleNotificationToggle(checked, updateNotificationsEnabled)} 
+          />
+        </Space>
       </Space>
     </Modal>
   );

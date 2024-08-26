@@ -7,7 +7,7 @@ import {
 import { Button, Card, Drawer, Switch, Tooltip } from "antd";
 import Color from "color";
 import { m } from "framer-motion";
-import { CSSProperties, useState, useEffect } from "react";
+import { CSSProperties, useState, useEffect, useCallback } from "react";
 import screenfull from "screenfull";
 import CyanBlur from "../../assets/images/background/cyan-blur.png";
 import RedBlur from "../../assets/images/background/red-blur.png";
@@ -16,7 +16,7 @@ import { IconButton, SvgIcon } from "../../components/icon";
 import { useSettingActions, useSettings } from "../../store/settingStore";
 import { ThemeLayout, ThemeMode } from "../../types/enum";
 import { useThemeToken } from "../../theme/hooks";
-import { subscribeToPushNotifications } from "../../sw";
+import { handleNotificationToggle } from "@/components/ServiceWorkerUpdate";
 
 /**
  * App Setting
@@ -35,11 +35,9 @@ export default function SettingButton() {
   const settings = useSettings();
   const {
     themeMode,
-    // themeColorPresets,
     themeLayout,
     themeStretch,
     breadCrumb,
-    // multiTab,
   } = settings;
   const { setSettings } = useSettingActions();
 
@@ -116,28 +114,9 @@ export default function SettingButton() {
     }
   }, []);
 
-  const handleNotificationToggle = async (checked: boolean) => {
-    if (checked) {
-      if ('Notification' in window) {
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-          await subscribeToPushNotifications();
-          setNotificationsEnabled(true);
-        } else {
-          console.log('Notification permission denied');
-          setNotificationsEnabled(false);
-        }
-      } else {
-        console.log('Notifications not supported in this browser');
-        setNotificationsEnabled(false);
-      }
-    } else {
-      // Here you might want to unsubscribe from notifications
-      // This would require implementing an unsubscribe function in your service worker
-      console.log('Notifications disabled');
-      setNotificationsEnabled(false);
-    }
-  };
+  const updateNotificationsEnabled = useCallback((enabled: boolean) => {
+    setNotificationsEnabled(enabled);
+  }, []);
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -146,16 +125,16 @@ export default function SettingButton() {
           
           if ('Notification' in window) {
             if (Notification.permission === 'granted') {
-              try {
-                new Notification(event.data.notification.title, {
-                  body: event.data.notification.body,
-                  icon: event.data.notification.badge
-                });
-              } catch (error) {
-                console.error('Error creating notification:', error);
-              }
-            } else {
-              console.log('Notification permission not granted');
+            try {
+              new Notification(event.data.notification.title, {
+                body: event.data.notification.body,
+                icon: event.data.notification.badge
+              });
+            } catch (error) {
+              console.error('Error creating notification:', error);
+            }
+          } else {
+            console.log('Notification permission not granted');
             }
           } else {
             console.log('Notifications not supported in this browser');
@@ -330,24 +309,32 @@ export default function SettingButton() {
                   },
                 }}
               >
-                <div className="flex h-full flex-shrink-0 flex-col gap-1 p-1">
+                <div className="flex h-full w-7 flex-shrink-0 flex-col gap-1 p-1">
                   <div
                     className="h-2 w-2 flex-shrink-0 rounded"
-                    style={{ background: layoutBackground(ThemeLayout.Mini) }}
+                    style={{
+                      background: layoutBackground(ThemeLayout.Mini),
+                    }}
                   />
                   <div
                     className="h-1 w-full flex-shrink-0 rounded opacity-50"
-                    style={{ background: layoutBackground(ThemeLayout.Mini) }}
+                    style={{
+                      background: layoutBackground(ThemeLayout.Mini),
+                    }}
                   />
                   <div
                     className="h-1 max-w-[12px] flex-shrink-0 rounded opacity-20"
-                    style={{ background: layoutBackground(ThemeLayout.Mini) }}
+                    style={{
+                      background: layoutBackground(ThemeLayout.Mini),
+                    }}
                   />
                 </div>
                 <div className="h-full w-full flex-1 flex-grow p-1">
                   <div
                     className="h-full w-full rounded opacity-20"
-                    style={{ background: layoutBackground(ThemeLayout.Mini) }}
+                    style={{
+                      background: layoutBackground(ThemeLayout.Mini),
+                    }}
                   />
                 </div>
               </Card>
@@ -366,45 +353,45 @@ export default function SettingButton() {
               </Tooltip>
             </div>
 
-            <Card
+              <Card
               onClick={() => setThemeStretch(!themeStretch)}
               className="flex h-20 w-full cursor-pointer items-center justify-center"
-              styles={{
-                body: {
+                styles={{
+                  body: {
                   width: "50%",
-                  padding: 0,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                },
-              }}
-            >
+                    padding: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                }}
+              >
               {themeStretch ? (
-                <div
+                  <div
                   className="flex w-full items-center justify-between"
-                  style={{
+                    style={{
                     color: colorPrimary,
                     transition: "width 300ms 0ms",
-                  }}
+                    }}
                 >
                   <LeftOutlined />
                   <div className="flex flex-grow border-b border-dashed" />
                   <RightOutlined />
                 </div>
               ) : (
-                <div
+                  <div
                   className="flex w-1/2 items-center justify-between"
-                  style={{
+                    style={{
                     transition: "width 300ms 0ms",
-                  }}
+                    }}
                 >
                   <RightOutlined />
                   <div className="flex-grow border-b border-dashed" />
                   <LeftOutlined />
                 </div>
               )}
-            </Card>
-          </div>
+              </Card>
+            </div>
 
           {/* theme presets */}
           {/* <div>
@@ -424,7 +411,7 @@ export default function SettingButton() {
                   </div>
                 </Card>
               ))}
-            </div>
+          </div>
           </div> */}
 
           {/* Page config */}
@@ -441,7 +428,7 @@ export default function SettingButton() {
                 style={{ color: colorTextTertiary }}
               >
                 <div>BreadCrumb</div>
-                <Switch
+            <Switch
                   size="small"
                   checked={breadCrumb}
                   onChange={(checked) => setBreadCrumn(checked)}
@@ -456,7 +443,7 @@ export default function SettingButton() {
                   size="small"
                   checked={multiTab}
                   onChange={(checked) => setMultiTab(checked)}
-                />
+            />
               </div> */}
             </div>
           </div>
@@ -468,18 +455,18 @@ export default function SettingButton() {
               style={{ color: colorTextSecondary }}
             >
               Notifications
-            </div>
+                          </div>
             <div className="flex flex-col gap-2">
               <div
                 className="flex items-center justify-between"
                 style={{ color: colorTextTertiary }}
               >
                 <div>Enable Notifications</div>
-                <Switch
+            <Switch
                   size="small"
-                  checked={notificationsEnabled}
-                  onChange={handleNotificationToggle}
-                />
+              checked={notificationsEnabled}
+              onChange={(checked) => handleNotificationToggle(checked, updateNotificationsEnabled)}
+            />
               </div>
             </div>
           </div>
