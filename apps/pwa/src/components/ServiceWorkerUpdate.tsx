@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Typography, Space } from "antd";
+import React, { useState, useEffect, useCallback } from "react";
+import { Modal, Button, Typography, Space, message } from "antd";
 import { useLocation } from "react-router-dom";
-// @ts-ignore
+//@ts-ignore
 import { registerSW } from "virtual:pwa-register";
 import { subscribeToPushNotifications } from "@/sw";
 
@@ -9,65 +9,71 @@ const { Text, Title } = Typography;
 
 const ServiceWorkerUpdateDialog: React.FC = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateSW, setUpdateSW] = useState<(() => Promise<void>) | null>(null);
   const location = useLocation();
 
-  const isUpdateAllowed = (): boolean => {
+  const isUpdateAllowed = useCallback((): boolean => {
     const locationParts = location.pathname.split("/");
-    return !(
-      locationParts.includes("add-new") || locationParts.includes("edit")
-    );
-  };
+    return !["add-new", "edit"].some(part => locationParts.includes(part));
+  }, [location]);
 
   useEffect(() => {
-    const updateSW = registerSW({
-      onNeedRefresh() {
-        setUpdateAvailable(true);
-      },
-      onOfflineReady() {
-        console.log('App is ready for offline use');
-      },
-    });
+    const registerServiceWorker = async () => {
+      try {
+        const swUpdater = await registerSW({
+          onNeedRefresh() {
+            setUpdateAvailable(true);
+          },
+          onOfflineReady() {
+            message.success('App is ready for offline use');
+          },
+        });
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.ready.then((registration:ServiceWorkerRegistration) => {
-        // Subscribe to push notifications
-        subscribeToPushNotifications();
+        setUpdateSW(() => swUpdater);
 
-        // Request any stored notifications
-        registration.active?.postMessage({ type: 'GET_STORED_NOTIFICATION' });
-      });
+        if ('serviceWorker' in navigator) {
+          const registration = await navigator.serviceWorker.ready;
+          await subscribeToPushNotifications();
+          registration.active?.postMessage({ type: 'GET_STORED_NOTIFICATION' });
 
-      // Listen for messages from the service worker
-      navigator.serviceWorker.addEventListener('message', (event) => {
-        console.log(event)
-        if (event.data && event.data.type === 'PUSH_RECEIVED') {
-          console.log('Push notification received in the frontend:', event.data.notification);
-          // Handle the push notification in the UI
-          const { badge, body, title } = event.data.notification;
-          if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification(title, {
-              body: body,
-              icon: badge
-            });
-          }
+          navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
         }
-      });
-    }
+      } catch (error) {
+        console.error('Failed to register service worker:', error);
+        message.error('Failed to set up offline functionality');
+      }
+    };
+
+    registerServiceWorker();
 
     return () => {
-      updateSW && updateSW();
+      navigator.serviceWorker.removeEventListener('message', handleServiceWorkerMessage);
     };
   }, []);
 
-  const handleUpdate = () => {
-    if (updateAvailable) {
-      window.location.reload();
+  const handleServiceWorkerMessage = useCallback((event: MessageEvent) => {
+    if (event.data?.type === 'PUSH_RECEIVED') {
+      const { badge, body, title } = event.data.notification;
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, { body, icon: badge });
+      }
     }
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleUpdate = useCallback(() => {
+    if (updateAvailable && updateSW) {
+      updateSW().then(() => {
+        window.location.reload();
+      }).catch(error => {
+        console.error('Failed to update service worker:', error);
+        message.error('Update failed. Please try again later.');
+      });
+    }
+  }, [updateAvailable, updateSW]);
+
+  const handleClose = useCallback(() => {
     setUpdateAvailable(false);
-  };
+  }, []);
 
   if (!updateAvailable || !isUpdateAllowed()) {
     return null;
@@ -92,9 +98,9 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
         <Text>Performance Improvement Update</Text>
         <Title level={5}>New Features:</Title>
         <ul>
-          <li>Report Customization</li>
-          <li>Financial Year Separation</li>
-          <li>Fast PDF Load</li>
+          <li>Customization</li>
+          <li>Bug Fixes</li>
+          <li>Feature Improvements</li>
         </ul>
       </Space>
     </Modal>
