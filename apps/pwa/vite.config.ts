@@ -83,53 +83,38 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
     orientation: "any",
     categories: ["business", "productivity", "content", "curation"],
     background_color: "#ffffff",
-    // This is useless code, When user share some doc, it'll show our app there. It will bring users attention to our existence. Cheers!
-    "share_target": {
-      "action": "/share-target/",
-      "method": "POST",
-      "enctype": "multipart/form-data",
-      "params": {
-        "title": "title",
-        "text": "text",
-        "url": "url",
-        "files": [
+    share_target: {
+      action: "/share-target/",
+      method: "POST",
+      enctype: "multipart/form-data",
+      params: {
+        title: "title",
+        text: "text",
+        url: "url",
+        files: [
           {
-            "name": "images",
-            "accept": ["image/*"]
+            name: "images",
+            accept: ["image/*"]
           }
         ]
       }
     }
   },
   includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
-  strategies: 'injectManifest',
-  srcDir: 'src',
-  filename: 'sw.ts',
-  injectRegister: null,
+  strategies: 'injectManifest',  // Use injectManifest strategy
+  srcDir: 'src',  // Point to the source directory
+  filename: 'sw.ts',  // Custom service worker filename
 };
-
-const replaceOptions = {
-  __DATE__: new Date().toISOString(),
-  preventAssignment: true,
-};
-
-const claims = process.env.CLAIMS === "true";
-const reload = process.env.RELOAD_SW === "true";
-const selfDestroying = process.env.SW_DESTROY === "true";
 
 export default defineConfig({
-
   base: "/",
-  esbuild: {
-    // drop: ['console', 'debugger'],
-  },
+  esbuild: {},
   css: {
     devSourcemap: true,
   },
   plugins: [
     reactSWC(),
     VitePWA(manifestForPlugIn),
-    // replace(replaceOptions),
     tsconfigPaths(),
     createSvgIconsPlugin({
       iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
@@ -147,17 +132,6 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
-      },
-    },
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-        sw: path.resolve(__dirname, 'src/sw.ts'),
-      },
-      output: {
-        entryFileNames: (assetInfo) => {
-          return assetInfo.name === 'sw' ? 'sw.js' : 'assets/[name]-[hash].js';
-        },
       },
     },
   },

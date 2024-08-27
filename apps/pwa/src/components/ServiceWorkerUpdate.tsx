@@ -1,9 +1,9 @@
+/// <reference types="vite-plugin-pwa/client" />
 import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Button, Typography, Space, message, Switch } from "antd";
 import { useLocation } from "react-router-dom";
-//@ts-ignore
-import { registerSW } from "virtual:pwa-register";
 import { subscribeToPushNotifications } from "@/sw";
+import { registerSW } from "virtual:pwa-register";
 
 const { Text, Title } = Typography;
 
@@ -39,9 +39,18 @@ export const handleNotificationToggle = async (checked: boolean, updateNotificat
 
 const ServiceWorkerUpdateDialog: React.FC = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [updateSW, setUpdateSW] = useState<(() => Promise<void>) | null>(null);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const location = useLocation();
+
+  // Static update function
+  const updateSWFunction = registerSW({
+    onNeedRefresh() {
+      setUpdateAvailable(true);
+    },
+    onOfflineReady() {
+      message.success('App is ready for offline use');
+    },
+  });
 
   const isUpdateAllowed = useCallback((): boolean => {
     const locationParts = location.pathname.split("/");
@@ -53,64 +62,38 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const registerServiceWorker = async () => {
-      try {
-        const swUpdater = await registerSW({
-          onNeedRefresh() {
-            setUpdateAvailable(true);
-          },
-          onOfflineReady() {
-            message.success('App is ready for offline use');
-          },
-        });
-
-        setUpdateSW(() => swUpdater);
-
-        if ('serviceWorker' in navigator) {
-          const registration = await navigator.serviceWorker.ready;
-
-          // Check if notifications are enabled
-          const subscription = await registration.pushManager.getSubscription();
-          if (subscription) {
-            setNotificationsEnabled(true);
-          }
-
-          navigator.serviceWorker.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'PUSH_RECEIVED') {
-              if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification(event.data.notification.title, {
-                  body: event.data.notification.body,
-                  icon: event.data.notification.badge,
-                });
-              }
-            }
-          });
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(async registration => {
+        const subscription = await registration.pushManager.getSubscription();
+        if (subscription) {
+          setNotificationsEnabled(true);
         }
-      } catch (error) {
-        console.error('Failed to register service worker:', error);
-        message.error('Failed to set up offline functionality');
-      }
-    };
 
-    registerServiceWorker();
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'PUSH_RECEIVED') {
+            if ('Notification' in window && Notification.permission === 'granted') {
+              new Notification(event.data.notification.title, {
+                body: event.data.notification.body,
+                icon: event.data.notification.badge,
+              });
+            }
+          }
+        });
+      });
+    }
   }, []);
 
   const handleUpdate = useCallback(() => {
-    if (updateAvailable && updateSW) {
-      updateSW().then(() => {
-        window.location.reload();
-      }).catch(error => {
-        console.error('Failed to update service worker:', error);
-        message.error('Update failed. Please try again later.');
-      });
-    }
-  }, [updateAvailable, updateSW]);
+    updateSWFunction(true);  // Force update and reload the page
+    console.log("force update");
+    setUpdateAvailable(false);  // Close the modal
+  }, [updateSWFunction]);
 
   const handleClose = useCallback(() => {
     setUpdateAvailable(false);
   }, []);
 
-  if (!updateAvailable || !isUpdateAllowed()) {
+  if (!updateAvailable || isUpdateAllowed()) {
     return null;
   }
 
@@ -133,7 +116,7 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
         <Text>Performance Improvement Update</Text>
         <Title level={5}>New Features:</Title>
         <ul>
-          <li>Customization</li>
+          <li>Customizations Added</li>
           <li>Bug Fixes</li>
           <li>Feature Improvements</li>
         </ul>
