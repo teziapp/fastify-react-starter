@@ -4,14 +4,15 @@ import { USER_TOKEN } from "./cookies"
 
 export const authApi = router({
 	logout: publicProcedure.mutation(({ ctx }) => {
-		ctx.res.clearCookie(USER_TOKEN, {
+		ctx.res.setCookie(USER_TOKEN, '', {
 			httpOnly: true,
 			path: '/',
 			secure: env.ENVIRONMENT === 'prod',
 			signed: env.ENVIRONMENT === 'prod',
-		})
+			maxAge: 0
+		});
 
-		return
+		return;
 	}),
 	profile: protectedProcedure.query(async ({ ctx }) => {
     const user = ctx.user;
