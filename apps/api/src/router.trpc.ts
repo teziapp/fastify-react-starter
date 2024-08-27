@@ -12,6 +12,9 @@ export const trpcRouter = router({
     // forceUpdateBelowFrontendVersion:
     // packageJson.force_update_below_frontend_version,
   })),
+  user: publicProcedure.query(({ ctx }) => {
+    return ctx.user;
+  }),
 });
 
 // export type definition of API
