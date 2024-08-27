@@ -20,15 +20,11 @@ export const AuthSuccess: React.FC = () => {
     if (exp) {
       router.replace("/");
     } else if (userSession.data) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      setUserToken({ exp: userSession.data.exp, iat: userSession.data.iat });
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      setUserInfo(userSession.data.user);
+      setUserToken({ exp: userSession.data.exp.toString() });
+      setUserInfo(userSession.data);
       router.replace("/");
     }
-  }, [router, userSession.isLoading]);
+  }, [exp, router, userSession.data, setUserToken, setUserInfo]);
 
   if (userSession.isError) {
     return (
