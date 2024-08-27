@@ -2,7 +2,7 @@
 import { precacheAndRoute } from 'workbox-precaching';
 
 declare let self: ServiceWorkerGlobalScope & typeof globalThis & { __WB_MANIFEST: any };
-
+console.log("new service worker file")
 precacheAndRoute(self.__WB_MANIFEST);
 
 interface NotificationData {

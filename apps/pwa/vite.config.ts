@@ -134,10 +134,5 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
-  },
-  server: {
-    headers: {
-      'Service-Worker-Allowed': '/',
-    },
-  },
+  }
 });
