@@ -1,6 +1,6 @@
 import { inferRouterOutputs } from "@trpc/server";
 // import * as packageJson from "../package.json";
-import { publicProcedure, router, protectedProcedure } from "./context.trpc";
+import { publicProcedure, router } from "./context.trpc";
 import { authApi } from "./auth/auth-api";
 
 export const trpcRouter = router({

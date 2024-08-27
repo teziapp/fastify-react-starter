@@ -5,6 +5,7 @@ import { USER_TOKEN } from "./auth/cookies";
 import { env } from "./configs/env.config";
 import { parseToken } from "./auth/create-token";
 import { UserSchema } from "@repo/utils";
+import '@fastify/cookie';
 
 const userValidator = z.object({
 	...UserSchema.shape,
