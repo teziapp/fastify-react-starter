@@ -28,3 +28,12 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Additional Features
+
+- **Event Tracking**: Integrated PostHog for product analytics and Microsoft Clarity for user behavior analysis.
+- **Common Configuration**: Added common app configuration for easier management of app-wide settings.
+
+## Environment Variables
+
+Make sure to set the following environment variables in your `.env` file:

@@ -24,7 +24,7 @@ export const SUPPORT_EMAIL = "support@yourcompany.com";
 export const API_BASE_URL = import.meta.env.VITE_BE_URL || "http://localhost:4000";
 
 // microsoft clarity
-export const CLARITY_ID = "Your-Clarity-ID";
+export const CLARITY_ID = import.meta.env.VITE_CLARITY_ID || "Your-Clarity-ID";
 
 
 const currentURL = window.location.href;

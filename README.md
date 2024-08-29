@@ -18,6 +18,8 @@ Simple starter kit which just works
 - **[Zustand](https://github.com/pmndrs/zustand)**: Lightweight state management for React
 - **[Orchid ORM](https://github.com/romeerez/orchid-orm)**: Lightweight ORM for PostgreSQL
 - **[zod](https://github.com/colinhacks/zod)**: TypeScript-first schema validation
+- **[PostHog](https://posthog.com/)**: Open-source product analytics
+- **[Microsoft Clarity](https://clarity.microsoft.com/)**: User behavior analytics tool
 
 ## 📦 Project Structure
 
@@ -56,6 +58,8 @@ OR manually
    ENVIRONMENT='dev'
    FRONTEND_URL=http://localhost:5173
    VITE_BE_URL=http://localhost:3000
+   VITE_POSTHOG_KEY=your_posthog_key
+   VITE_CLARITY_ID=your_clarity_id
    ```
 
    (`api/.env`)[/api/.env]:
@@ -68,6 +72,8 @@ OR manually
    GOOGLE_CLIENT_ID=your_google_client_id
    GOOGLE_CLIENT_SECRET=your_google_client_secret
    JWT_SECRET=your_jwt_secret
+   AXIOM_DATASET=your_axiom_dataset
+   AXIOM_TOKEN=your_axiom_token
    ```
 
 2. **Set up the database:**
@@ -122,7 +128,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Zustand](https://github.com/pmndrs/zustand)
 - [Orchid ORM](https://github.com/romeerez/orchid-orm)
 - [zod](https://github.com/colinhacks/zod)
-
+- [PostHog](https://posthog.com/)
+- [Microsoft Clarity](https://clarity.microsoft.com/)
+- [Axiom](https://axiom.co/)
 
 # Todos:
 
@@ -136,10 +144,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     [ ] Database timezone setup.
     [ ] Check if present user has all access like dropping tables, etc... dont load the app.
 [ ] Check & Force backend for proper timezone. (On both server & database)
+[x] Logs transport to FileSystem / Database. (Added Axiom integration)
 
 ## Frontend
 [ ] Option to make Form persistent on page-reloads.
 [ ] Make it PWA.
+[x] Add event tracking (Added PostHog and Microsoft Clarity)
 
 ## Common
 [ ] Push Notifications
@@ -149,6 +159,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [ ] A/B Testing.
 [ ] Github Actions for CI/CD.
 [ ] Obersavability & Monitoring.
+[x] Obersavability & Monitoring. (Partially implemented with Axiom, PostHog, and Clarity)
 
 # Examples for reference:
 - https://github.com/Cookie-gg/trpc-fastify-prisma/blob/master/package.json
