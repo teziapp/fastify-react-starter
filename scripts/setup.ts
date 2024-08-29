@@ -114,7 +114,10 @@ async function createEnvFiles() {
 
   const rootEnvContent = `ENVIRONMENT='dev'
 FRONTEND_URL=http://localhost:5173
-VITE_BE_URL=http://localhost:3000`;
+VITE_BE_URL=http://localhost:3000
+VITE_POSTHOG_KEY=your_posthog_key
+VITE_POSTHOG_HOST=https://us.i.posthog.com
+VITE_CLARITY_ID=your_clarity_id`;
 
   const apiEnvContent = `ENVIRONMENT='dev'
 DB_URL=postgres://postgres:postgres@localhost:5432/boilerplate
@@ -123,12 +126,37 @@ FRONTEND_URL=http://localhost:5173
 VITE_BE_URL=http://localhost:3000
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
-JWT_SECRET=${generateSecureRandomString(32)}`;
+JWT_SECRET=${generateSecureRandomString(32)}
+AXIOM_DATASET=your_axiom_dataset
+AXIOM_TOKEN=your_axiom_token`;
 
   fs.writeFileSync(path.join(__dirname, '..', '.env'), rootEnvContent);
   fs.writeFileSync(path.join(__dirname, '..', 'apps', 'api', '.env'), apiEnvContent);
 
   envSpinner.stop(".env files created successfully.");
+}
+
+async function promptForAnalyticsCredentials() {
+  intro("Setting up analytics...");
+
+  const posthogKey = await prompt("Enter your PostHog API Key", "your_posthog_key");
+  const clarityId = await prompt("Enter your Microsoft Clarity ID", "your_clarity_id");
+  const axiomDataset = await prompt("Enter your Axiom Dataset", "your_axiom_dataset");
+  const axiomToken = await prompt("Enter your Axiom Token", "your_axiom_token");
+
+  // Update root .env
+  let rootEnvContent = fs.readFileSync(path.join(__dirname, '..', '.env'), 'utf-8');
+  rootEnvContent = rootEnvContent.replace(/VITE_POSTHOG_KEY=.*/, `VITE_POSTHOG_KEY=${posthogKey}`);
+  rootEnvContent = rootEnvContent.replace(/VITE_CLARITY_ID=.*/, `VITE_CLARITY_ID=${clarityId}`);
+  fs.writeFileSync(path.join(__dirname, '..', '.env'), rootEnvContent);
+
+  // Update api .env
+  let apiEnvContent = fs.readFileSync(path.join(__dirname, '..', 'apps', 'api', '.env'), 'utf-8');
+  apiEnvContent = apiEnvContent.replace(/AXIOM_DATASET=.*/, `AXIOM_DATASET=${axiomDataset}`);
+  apiEnvContent = apiEnvContent.replace(/AXIOM_TOKEN=.*/, `AXIOM_TOKEN=${axiomToken}`);
+  fs.writeFileSync(path.join(__dirname, '..', 'apps', 'api', '.env'), apiEnvContent);
+
+  outro("Analytics credentials updated successfully.");
 }
 
 async function main() {
@@ -139,6 +167,7 @@ async function main() {
   await createEnvFiles();
   await setupDatabase();
   await promptForGoogleClientCredentials();
+  await promptForAnalyticsCredentials();
 
   console.log("\x1b[33mStarting the development server...\x1b[0m");
   spawnSync("pnpm", ["run", "dev"], { stdio: "inherit" });

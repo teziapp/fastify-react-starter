@@ -10,6 +10,7 @@ import ResetForm from "../sys/login/ResetForm";
 import { useThemeToken } from "../../theme/hooks";
 import { Logo } from "../../components/Logo/Logo";
 import { useUserToken } from "@/store/userStore";
+import { APP_NAME } from "@/appConfig";
 
 export function Login() {
 	const {exp} = useUserToken()
@@ -34,7 +35,7 @@ export function Login() {
         <Flex gap={"small"} align="center">
           <Logo className="h-14 w-14" />
           <div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl">
-            your app title
+          {APP_NAME}
           </div>
         </Flex>
         <img

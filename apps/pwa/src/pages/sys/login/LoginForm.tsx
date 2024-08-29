@@ -5,13 +5,23 @@ import {
   useLoginStateContext,
 } from "./providers/LoginStateProvider";
 import { GoogleOutlined } from "@ant-design/icons";
+import { usePostHog } from 'posthog-js/react'
 
 function LoginForm() {
   const { loginState } = useLoginStateContext();
+  const posthog = usePostHog()
 
+  if (loginState !== LoginStateEnum.LOGIN) { return null; }
   if (loginState !== LoginStateEnum.LOGIN) return null;
 
   const handleGoogleSignIn = () => {
+    posthog?.capture('login_clicked', {
+      timestamp: new Date().toISOString(),
+      browser: navigator.userAgent,
+      referrer: document.referrer || 'Direct',
+      language: navigator.language,
+      platform: navigator.platform
+    });
     window.open(import.meta.env.VITE_BE_URL + "/auth/login/google", "_self");
   };
 

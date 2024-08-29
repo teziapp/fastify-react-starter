@@ -1,0 +1,65 @@
+diff --git a/README.md b/README.md
+index 5782ff90deab0401c17c93ab3131cf278c88186e..5fd413683a48931b9e2dc40355cfc53a32098228 100644
+--- a/README.md
++++ b/README.md
+@@ -14,20 +14,15 @@ import { clarity } from 'react-microsoft-clarity';
+ clarity.init(id);
+ 
+ // Identify the user
+-clarity.identify('USER_ID', { userProperty: 'value' });
++clarity.identify('USER_ID', 'SESSION_ID', 'PAGE_ID');
+ 
+ // Cookie consent
+ clarity.consent();
+-
+-// Setup a custom tag
+-clarity.setTag('key', 'value');
+-
+-// Upgrade session
+-clarity.upgrade('upgradeReason');
++	@@ -27,7 +27,7 @@ clarity.upgrade('upgradeReason');
+ 
+ // Check if Clarity has been initialized before calling its methods
+ if (clarity.hasStarted()) {
+-  clarity.identify('USER_ID', { userProperty: 'value' });
++  clarity.identify('USER_ID', 'SESSION_ID', 'PAGE_ID');
+ }
+ ```
+ - id: Stands for 'Clarity ID' - Your site's ID. This is the ID which tells Clarity which site settings it should load and where it should save the data collected.
+diff --git a/index.d.ts b/index.d.ts
+index 94a64b1ffc5ce9bd21069b3f63125cab88e0be0c..ac9c396cc01e36144dbc7a8019cb78cc5cd2f56f 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -13,13 +13,14 @@ export module clarity {
+     /**
+      * Identify user
+      * @param userId Unique ID of a user
+-     * @param properties Additional properties describing your user
++     * @param sessionId - Optional ID for the user's session.
++     * @param pageId - Optional ID for the current page.
+      */
+     export function identify(
+       userId: string,
+-      properties: Record<string, any>
++      sessionId?: string,
++      pageId?: string
+     ): void;
+-
+     /**
+      * Cookie Consent
+      */
+diff --git a/index.js b/index.js
+index e3d1d424f761270dadfddf643a1fb25e45994777..d897e0ac6cfc46eae5d5700536c7601aded21a51 100644
+--- a/index.js
++++ b/index.js
+@@ -17,8 +17,8 @@ function hasStarted() {
+   return typeof window.clarity === "function";
+ }
+ 
+-function identify(userId, properties) {
+-  clarity("identify", userId, properties);
++function identify(userId, sessionId, pageId) {
++  clarity("identify", userId, sessionId, pageId);
+ }
+ 
+ function consent() {
