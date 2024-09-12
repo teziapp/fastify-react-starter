@@ -59,7 +59,7 @@ export const googleAuth: FastifyPluginAsync = fastifyPlugin(async (fastify) => {
         profilePicture: user.picture,
         createdAt: null,
         updatedAt: null,
-        isVerified: Boolean(user.verified_email||false),
+        isVerified: Boolean(user.verified_email),
         lastLoginAt: null,
       })
       const token = createToken(

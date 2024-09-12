@@ -1,19 +1,20 @@
-import { environments } from "@repo/utils";
-import "dotenv/config";
 import { z } from "zod";
+import { environments } from "@repo/utils";
 
-const envDefaultFields = z
-  .object({
-    VITE_BE_URL: z.string().url(),
+
+const envDefaultFields = z.object({
+    DB_URL: z.string().url(),
+    DB_TEST_URL: z.string().url().optional(),
     ENVIRONMENT: z.enum(environments),
-    FRONTEND_URL: z.string().url(),
-    JWT_SECRET: z.string().min(1),
-    GOOGLE_CLIENT_ID: z.string().min(1),
-    GOOGLE_CLIENT_SECRET: z.string().min(1),
-    // for storing the logs which are sent to axiom
-    AXIOM_DATASET: z.string().optional(),
-    AXIOM_TOKEN: z.string().optional(),
-  })
+}).refine((env) => {
+  if (env.ENVIRONMENT === "prod" && env.DB_TEST_URL) {
+    return {
+      path: "DB_TEST_URL",
+      message: "DB_TEST_URL is not allowed in production",
+    };
+  }
+  return true;
+});
 
 const envDevFields = z.object({
   ENVIRONMENT: z.literal("dev"),
@@ -21,7 +22,6 @@ const envDevFields = z.object({
 
 const envProdFields = z.object({
   ENVIRONMENT: z.literal("prod"),
-  // DISCORD_WEBHOOK_URL: z.string().url(),
 });
 
 const envTestFields = z.object({
