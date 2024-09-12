@@ -13,6 +13,19 @@ interface NotificationData {
   data: string;
 }
 
+// Activate event to take control of all clients as soon as the service worker is activated
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+// Listen for manual update trigger
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+// Handle push notifications
 self.addEventListener('push', (event: PushEvent) => {
   const data = event.data?.json() || {};
   const notification: NotificationData = {
@@ -30,6 +43,7 @@ self.addEventListener('push', (event: PushEvent) => {
   );
 });
 
+// Handle notification click event
 self.addEventListener('notificationclick', (event: NotificationEvent) => {
   event.notification.close();
   event.waitUntil(
@@ -42,10 +56,10 @@ export async function subscribeToPushNotifications(): Promise<void> {
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: 'BLA70jg5Wgi6XD6BAElOfW7YXcQ3l3iFRzyPj5AV5ZuSr_uTugv-9hbgXwfPhuw_JfbDAqn-Fl5nKSvnQpjFV8g'
+      applicationServerKey: 'BLA70jg5Wgi6XD6BAElOfW7YXcQ3l3iFRzyPj5AV5ZuSr_uTugv-9hbgXwfPhuw_JfbDAqn-Fl5nKSvnQpjFV8g',
     });
     
-    const response = await fetch('http://localhost:3000/subscribe', {
+    const response = await fetch(import.meta.env.VITE_BE_URL + '/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

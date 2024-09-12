@@ -6,6 +6,7 @@ import { registerSW } from "virtual:pwa-register";
 
 const { Text, Title } = Typography;
 
+
 export const handleNotificationToggle = async (
   checked: boolean,
   setNotificationsEnabled: (enabled: boolean) => void
@@ -36,6 +37,16 @@ export const handleNotificationSubscription = async (subscribe: boolean): Promis
       const subscription = await registration.pushManager.getSubscription();
       if (subscription) {
         await subscription.unsubscribe();
+        
+        // Send unsubscribe request to backend
+        await fetch(import.meta.env.VITE_BE_URL + '/unsubscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(subscription),
+        });
+        
         registration.active?.postMessage({ type: 'UNSUBSCRIBE_NOTIFICATIONS' });
         console.log('Notification turned off');
         return false;
@@ -84,9 +95,27 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
 
   const handleUpdate = () => {
     console.log("force update");
-    updateSWFunction(true);  // Force update and reload the page
-    setUpdateAvailable(false);  // Close the modal after forcing the update
+  
+    // Force the new service worker to activate
+    updateSWFunction(true);  // This triggers the installation of the new SW
+  
+    navigator.serviceWorker.getRegistration().then((registration) => {
+      if (registration?.waiting) {
+        // Tell the service worker to skip the waiting phase and activate
+        registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+  
+        // Reload the page when the new service worker takes control
+        registration.waiting.addEventListener('statechange', (event) => {
+          if ((event.target as ServiceWorker).state === 'activated') {
+            window.location.reload();
+          }
+        });
+      }
+    });
+  
+    setUpdateAvailable(false);  // Close the modal
   };
+  
   
 
   const handleClose = useCallback(() => {

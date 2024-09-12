@@ -1,6 +1,7 @@
 import path from "path";
 import { defineConfig } from "vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+// use without react-swc use react only
 import reactSWC from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
