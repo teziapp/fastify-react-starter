@@ -4,16 +4,16 @@ import z from "zod";
 import { USER_TOKEN } from "./auth/cookies";
 import { env } from "./configs/env.config";
 import { parseToken } from "./auth/create-token";
-import { UserSchema } from "@repo/utils";
+import { User, UserTable } from "@repo/db";
 
 const userValidator = z.object({
-	...UserSchema.shape,
-	exp: z.number()
-})
+  ...UserTable.inputSchema().shape,
+	exp: z.number(),
+});
 
 export function trpcContext({ req, res }: CreateFastifyContextOptions) {
 
-  let user: z.infer<typeof userValidator> | null = null
+  let user: User | null = null
 		const userToken = req.cookies ? req.cookies[USER_TOKEN] : undefined
 
 		if (userToken) {

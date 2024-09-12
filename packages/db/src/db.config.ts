@@ -1,6 +1,6 @@
 import { orchidORM } from "orchid-orm";
-import { env, isTest } from "../configs/env.config";
-import { UserTable } from "./tables/user.table";
+import { env, isTest } from "./envValidator";
+import { UserTable } from "./tables";
 
 export const db = orchidORM(
   {

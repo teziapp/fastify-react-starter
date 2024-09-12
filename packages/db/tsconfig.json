@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"declarationMap": true,
+		"esModuleInterop": true,
+		"incremental": false,
+		"noEmit": true,
+		"isolatedModules": true,
+		"useDefineForClassFields": true,
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"module": "NodeNext",
+		"moduleDetection": "force",
+		"moduleResolution": "NodeNext",
+		"noUncheckedIndexedAccess": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext"
+	},
+	"files": ["src/index.ts"],
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "**/*.test.js"]
+}
