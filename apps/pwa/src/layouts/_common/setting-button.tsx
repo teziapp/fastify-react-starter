@@ -7,7 +7,7 @@ import {
 import { Button, Card, Drawer, Switch, Tooltip } from "antd";
 import Color from "color";
 import { m } from "framer-motion";
-import { CSSProperties, useState, useEffect, useCallback } from "react";
+import { CSSProperties, useState } from "react";
 import screenfull from "screenfull";
 import CyanBlur from "../../assets/images/background/cyan-blur.png";
 import RedBlur from "../../assets/images/background/red-blur.png";
@@ -16,7 +16,7 @@ import { IconButton, SvgIcon } from "../../components/icon";
 import { useSettingActions, useSettings } from "../../store/settingStore";
 import { ThemeLayout, ThemeMode } from "../../types/enum";
 import { useThemeToken } from "../../theme/hooks";
-import { handleNotificationToggle } from "@/components/ServiceWorkerUpdate";
+import NotificationToggle from "@/components/card/NotificationToggle";
 
 /**
  * App Setting
@@ -104,47 +104,6 @@ export default function SettingButton() {
     themeLayout === layout
       ? `linear-gradient(135deg, ${colorBgBase} 0%, ${colorPrimary} 100%)`
       : "#919eab";
-
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-
-  useEffect(() => {
-    // Check if notifications are already enabled when the component mounts
-    if ('Notification' in window) {
-      setNotificationsEnabled(Notification.permission === 'granted');
-    }
-  }, []);
-
-  const updateNotificationsEnabled = useCallback((enabled: boolean) => {
-    setNotificationsEnabled(enabled);
-  }, []);
-
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('message', (event) => {
-        if (event.data && event.data.type === 'PUSH_RECEIVED') {
-          
-          if ('Notification' in window) {
-            if (Notification.permission === 'granted') {
-            try {
-              new Notification(event.data.notification.title, {
-                body: event.data.notification.body,
-                icon: event.data.notification.badge
-              });
-            } catch (error) {
-              console.error('Error creating notification:', error);
-            }
-          } else {
-            console.log('Notification permission not granted');
-            }
-          } else {
-            console.log('Notifications not supported in this browser');
-          }
-        }
-      });
-    } else {
-      console.log('Service Worker is not supported in this browser');
-    }
-  }, []);
 
   return (
     <>
@@ -449,27 +408,11 @@ export default function SettingButton() {
           </div>
 
           {/* Notification toggle */}
-          <div>
-            <div
-              className="mb-3 text-base font-semibold"
-              style={{ color: colorTextSecondary }}
-            >
-              Notifications
-                          </div>
-            <div className="flex flex-col gap-2">
-              <div
-                className="flex items-center justify-between"
-                style={{ color: colorTextTertiary }}
-              >
-                <div>Enable Notifications</div>
-            <Switch
-                  size="small"
-              checked={notificationsEnabled}
-              onChange={(checked) => handleNotificationToggle(checked, updateNotificationsEnabled)}
-            />
-              </div>
-            </div>
-          </div>
+          <NotificationToggle
+            colorTextSecondary={colorTextSecondary}
+            colorTextTertiary={colorTextTertiary}
+          />
+          
         </div>
       </Drawer>
     </>

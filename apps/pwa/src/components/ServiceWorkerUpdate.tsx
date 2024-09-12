@@ -6,20 +6,28 @@ import { registerSW } from "virtual:pwa-register";
 
 const { Text, Title } = Typography;
 
-export const handleNotificationToggle = async (checked: boolean, updateNotificationsEnabled: (enabled: boolean) => void) => {
-  if (checked) {
+export const handleNotificationToggle = async (
+  checked: boolean,
+  setNotificationsEnabled: (enabled: boolean) => void
+) => {
+  setNotificationsEnabled(checked);  
+  handleNotificationSubscription(checked);
+};
+
+export const handleNotificationSubscription = async (subscribe: boolean): Promise<boolean> => {
+  if (subscribe) {
     if ('Notification' in window) {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
         await subscribeToPushNotifications();
-        updateNotificationsEnabled(true);
+        return true;
       } else {
         console.log('Notification permission denied');
-        updateNotificationsEnabled(false);
+        return false;
       }
     } else {
       console.log('Notifications not supported in this browser');
-      updateNotificationsEnabled(false);
+      return false;
     }
   } else {
     // Unsubscribe from notifications
@@ -30,9 +38,10 @@ export const handleNotificationToggle = async (checked: boolean, updateNotificat
         await subscription.unsubscribe();
         registration.active?.postMessage({ type: 'UNSUBSCRIBE_NOTIFICATIONS' });
         console.log('Notification turned off');
-        updateNotificationsEnabled(false);
+        return false;
       }
     }
+    return false;
   }
 };
 
@@ -50,10 +59,6 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
       message.success('App is ready for offline use');
     },
   });
-
-  const updateNotificationsEnabled = useCallback((enabled: boolean) => {
-    setNotificationsEnabled(enabled);
-  }, []);
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -78,10 +83,11 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
   }, []);
 
   const handleUpdate = () => {
-    updateSWFunction(true);  // Force update and reload the page
     console.log("force update");
-    setUpdateAvailable(false);  // Close the modal
+    updateSWFunction(true);  // Force update and reload the page
+    setUpdateAvailable(false);  // Close the modal after forcing the update
   };
+  
 
   const handleClose = useCallback(() => {
     setUpdateAvailable(false);
@@ -115,7 +121,7 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
           <Text>Enable Notifications</Text>
           <Switch 
             checked={notificationsEnabled} 
-            onChange={(checked) => handleNotificationToggle(checked, updateNotificationsEnabled)} 
+            onChange={(checked) => handleNotificationToggle(checked,setNotificationsEnabled)}
           />
         </Space>
       </Space>
