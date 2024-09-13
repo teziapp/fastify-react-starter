@@ -4,7 +4,7 @@ import { TreeViewCollapseIcon, TreeViewExpandIcon, TreeViewEndIcon } from './Cus
 
 // ----------------------------------------------------------------------
 
-export default function TreeView(theme: Theme) {
+export default function TreeView(theme: Theme): any {
   return {
     MuiTreeView: {
       defaultProps: {

@@ -5,7 +5,7 @@ import { Tooltip, Box } from '@mui/material';
 import { bgBlur } from '../../../utils/cssStyles';
 //
 import { IconButtonAnimate } from '../../animate';
-import SvgColor from '../../svg-color';
+import SvgColor from '@/component/svg-color';
 //
 import BadgeDot from './BadgeDot';
 

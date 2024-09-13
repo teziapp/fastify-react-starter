@@ -4,15 +4,16 @@ import { Popover, ListItemButton, ListItemIcon } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // config
-import { NAV, ICON } from '../../../config-global';
+import { NAV, ICON } from '@/app-config';
 //
 import { NavItemProps } from '../types';
+import { ComponentType } from 'react';
 
 // ----------------------------------------------------------------------
 
 type StyledItemProps = Omit<NavItemProps, 'item'>;
 
-export const StyledItem = styled(ListItemButton, {
+export const StyledItem: ComponentType<StyledItemProps> = styled(ListItemButton, {
   shouldForwardProp: (prop) => prop !== 'active' && prop !== 'open',
 })<StyledItemProps>(({ active, disabled, open, depth, theme }) => {
   const isLight = theme.palette.mode === 'light';
@@ -81,7 +82,7 @@ export const StyledItem = styled(ListItemButton, {
 
 // ----------------------------------------------------------------------
 
-export const StyledIcon = styled(ListItemIcon)({
+export const StyledIcon: ComponentType<any> = styled(ListItemIcon)({
   marginRight: 8,
   flexShrink: 0,
   width: ICON.NAV_ITEM_HORIZONTAL,
@@ -90,7 +91,7 @@ export const StyledIcon = styled(ListItemIcon)({
 
 // ----------------------------------------------------------------------
 
-export const StyledPopover = styled(Popover)(({ theme }) => ({
+export const StyledPopover: ComponentType<any> = styled(Popover)(({ theme }) => ({
   pointerEvents: 'none',
   '& .MuiPopover-paper': {
     width: 160,

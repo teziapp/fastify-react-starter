@@ -2,8 +2,8 @@
 import { RadioGroup } from '@mui/material';
 //
 import SvgColor from '../../svg-color';
-import { useSettingsContext } from '../SettingsContext';
 import { StyledCard, StyledWrap, MaskControl } from '../styles';
+import { useSettingsContext } from '@/component/settings/settingContext';
 
 // ----------------------------------------------------------------------
 

@@ -3,10 +3,10 @@ import { IconButton, IconButtonProps } from '@mui/material';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // config
-import { NAV } from '../../../config-global';
+import { NAV } from '@/app-config';
 // components
-import Iconify from '../../../components/iconify';
-import { useSettingsContext } from '../../../components/settings';
+import Iconify from '@/component/iconify';
+import { useSettingsContext } from '@/component/settings/settingContext';
 
 // ----------------------------------------------------------------------
 

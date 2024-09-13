@@ -2,8 +2,8 @@
 import { alpha } from '@mui/material/styles';
 import { RadioGroup } from '@mui/material';
 //
-import { useSettingsContext } from '../SettingsContext';
-import { StyledCard, StyledWrap, MaskControl, StyledCircleColor } from '../styles';
+import { useSettingsContext } from '@/component/settings/settingContext';
+import { MaskControl, StyledCard, StyledCircleColor, StyledWrap } from '@/component/settings/styles';
 
 // ----------------------------------------------------------------------
 

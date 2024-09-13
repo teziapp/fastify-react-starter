@@ -5,23 +5,22 @@ import { Box, Divider, Drawer, Stack, Typography, Tooltip, IconButton } from '@m
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // config
-import { NAV } from '../../../config-global';
+import { NAV } from '@/app-config';
 //
-import Iconify from '../../iconify';
+import Iconify from '@/component/iconify';
 import Scrollbar from '../../scrollbar';
 //
 import { defaultSettings } from '../config-setting';
-import { useSettingsContext } from '../SettingsContext';
 import Block from './Block';
 import BadgeDot from './BadgeDot';
 import ToggleButton from './ToggleButton';
 import ModeOptions from './ModeOptions';
 import LayoutOptions from './LayoutOptions';
-import StretchOptions from './StretchOptions';
 import ContrastOptions from './ContrastOptions';
 import DirectionOptions from './DirectionOptions';
 import FullScreenOptions from './FullScreenOptions';
 import ColorPresetsOptions from './ColorPresetsOptions';
+import { useSettingsContext } from '@/component/settings/settingContext';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +30,6 @@ export default function SettingsDrawer() {
   const {
     themeMode,
     themeLayout,
-    themeStretch,
     themeContrast,
     themeDirection,
     themeColorPresets,
@@ -53,7 +51,6 @@ export default function SettingsDrawer() {
   const notDefault =
     themeMode !== defaultSettings.themeMode ||
     themeLayout !== defaultSettings.themeLayout ||
-    themeStretch !== defaultSettings.themeStretch ||
     themeContrast !== defaultSettings.themeContrast ||
     themeDirection !== defaultSettings.themeDirection ||
     themeColorPresets !== defaultSettings.themeColorPresets;
@@ -119,10 +116,6 @@ export default function SettingsDrawer() {
 
           <Block title="Layout">
             <LayoutOptions />
-          </Block>
-
-          <Block title="Stretch" tooltip="Only available at large resolutions > 1600px (xl)">
-            <StretchOptions />
           </Block>
 
           <Block title="Presets">

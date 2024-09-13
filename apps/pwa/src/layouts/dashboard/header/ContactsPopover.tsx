@@ -4,15 +4,13 @@ import { alpha } from '@mui/material/styles';
 import { Typography, ListItemText, ListItemAvatar, MenuItem } from '@mui/material';
 // utils
 import { fToNow } from '../../../utils/formatTime';
-// _mock_
-import { _contacts } from '../../../_mock/arrays';
 // components
-import { CustomAvatar } from '../../../components/custom-avatar';
-import Iconify from '../../../components/iconify';
-import Scrollbar from '../../../components/scrollbar';
-import MenuPopover from '../../../components/menu-popover';
-import BadgeStatus from '../../../components/badge-status';
-import { IconButtonAnimate } from '../../../components/animate';
+import { CustomAvatar } from '@/component/custom-avatar';
+import Iconify from '@/component/iconify';
+import Scrollbar from '@/component/scrollbar';
+import MenuPopover from '@/component/menu-popover';
+import BadgeStatus from '@/component/badge-status';
+import { IconButtonAnimate } from '@/component/animate';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +26,8 @@ export default function ContactsPopover() {
   const handleClosePopover = () => {
     setOpenPopover(null);
   };
+
+  const _contacts = [{ id: 1, name: 'John Doe', avatar: 'https://i.pravatar.cc/150?img=1', status: 'online', lastActivity: new Date() }];
 
   return (
     <>

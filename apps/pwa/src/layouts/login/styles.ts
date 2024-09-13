@@ -2,16 +2,16 @@
 import { styled, alpha } from '@mui/material/styles';
 // utils
 import { bgGradient } from '../../utils/cssStyles';
-
+import { ComponentType } from 'react';
 // ----------------------------------------------------------------------
 
-export const StyledRoot = styled('main')(() => ({
+export const StyledRoot: ComponentType<any> = styled('main')(() => ({
   height: '100%',
   display: 'flex',
   position: 'relative',
 }));
 
-export const StyledSection = styled('div')(({ theme }) => ({
+export const StyledSection: ComponentType<any> = styled('div')(({ theme }) => ({
   display: 'none',
   position: 'relative',
   [theme.breakpoints.up('md')]: {
@@ -23,7 +23,7 @@ export const StyledSection = styled('div')(({ theme }) => ({
   },
 }));
 
-export const StyledSectionBg = styled('div')(({ theme }) => ({
+export const StyledSectionBg: ComponentType<any> = styled('div')(({ theme }) => ({
   ...bgGradient({
     color: alpha(theme.palette.background.default, theme.palette.mode === 'light' ? 0.9 : 0.94),
     imgUrl: '/assets/background/overlay_2.jpg',
@@ -37,7 +37,7 @@ export const StyledSectionBg = styled('div')(({ theme }) => ({
   transform: 'scaleX(-1)',
 }));
 
-export const StyledContent = styled('div')(({ theme }) => ({
+export const StyledContent: ComponentType<any> = styled('div')(({ theme }) => ({
   width: 480,
   margin: 'auto',
   display: 'flex',

@@ -3,7 +3,7 @@ import { TabProps } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function Tabs(theme: Theme) {
+export default function Tabs(theme: Theme): any {
   return {
     MuiTabs: {
       defaultProps: {

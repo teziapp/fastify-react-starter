@@ -1,7 +1,7 @@
 import { useState } from 'react';
 //
-import SvgColor from '../../svg-color';
-import { StyledCard } from '../styles';
+import SvgColor from '@/component/svg-color';
+import { StyledCard } from '@/component/settings/styles';
 
 // ----------------------------------------------------------------------
 

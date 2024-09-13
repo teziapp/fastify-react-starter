@@ -9,7 +9,7 @@ import {
 } from "@trpc/react-query";
 import { ApiRouter, RouterOutputs } from "../../../api/src/router.trpc";
 
-export const trpc = createTRPCReact<ApiRouter>({
+export const trpc:any = createTRPCReact<ApiRouter>({
   abortOnUnmount: true,
 });
 
@@ -74,5 +74,5 @@ export const trpcClient = trpc.createClient({
   ],
 });
 
-export type UserType = RouterOutputs["me"]["userData"];
+export type UserType = RouterOutputs["auth"]["profile"];
 export type ApiRouterOutputs = RouterOutputs;

@@ -4,7 +4,7 @@ import { InputSelectIcon } from './CustomIcons';
 
 // ----------------------------------------------------------------------
 
-export default function Select(theme: Theme) {
+export default function Select(_theme: Theme) {
   return {
     MuiSelect: {
       defaultProps: {

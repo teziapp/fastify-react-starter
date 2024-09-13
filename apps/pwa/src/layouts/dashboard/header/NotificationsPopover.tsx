@@ -18,21 +18,28 @@ import {
   ListItemButton,
 } from '@mui/material';
 // utils
-import { fToNow } from '../../../utils/formatTime';
-// _mock_
-import { _notifications } from '../../../_mock/arrays';
+import { fToNow } from '@/utils/formatTime';
+
 // components
-import Iconify from '../../../components/iconify';
-import Scrollbar from '../../../components/scrollbar';
-import MenuPopover from '../../../components/menu-popover';
-import { IconButtonAnimate } from '../../../components/animate';
+import Iconify from '@/component/iconify';
+import Scrollbar from '@/component/scrollbar';
+import MenuPopover from '@/component/menu-popover';
+import { IconButtonAnimate } from '@/component/animate';
 
 // ----------------------------------------------------------------------
 
 export default function NotificationsPopover() {
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
-  const [notifications, setNotifications] = useState(_notifications);
+  const [notifications, setNotifications] = useState([{
+    id: '1',
+    title: 'Order placed',
+    description: 'Your order has been placed',
+    avatar: null,
+    type: 'order_placed',
+    createdAt: new Date(),
+    isUnRead: true,
+  }]);
 
   const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
 

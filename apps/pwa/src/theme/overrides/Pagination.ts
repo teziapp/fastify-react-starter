@@ -19,7 +19,7 @@ declare module '@mui/material/Pagination' {
   }
 }
 
-export default function Pagination(theme: Theme) {
+export default function Pagination(theme: Theme): any {
   const isLight = theme.palette.mode === 'light';
 
   const rootStyle = (ownerState: PaginationProps) => {

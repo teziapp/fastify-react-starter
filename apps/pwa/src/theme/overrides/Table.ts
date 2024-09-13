@@ -2,7 +2,7 @@ import { Theme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-export default function Table(theme: Theme) {
+export default function Table(theme: Theme): any {
   return {
     MuiTableContainer: {
       styleOverrides: {

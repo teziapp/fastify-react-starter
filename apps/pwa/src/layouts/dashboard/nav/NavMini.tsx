@@ -1,12 +1,12 @@
 // @mui
 import { Stack, Box } from '@mui/material';
 // config
-import { NAV } from '../../../config-global';
+import { NAV } from '@/app-config';
 // utils
-import { hideScrollbarX } from '../../../utils/cssStyles';
+import { hideScrollbarX } from '@/utils/cssStyles';
 // components
-import Logo from '../../../components/logo';
-import { NavSectionMini } from '../../../components/nav-section';
+import Logo from '@/component/logo';
+import { NavSectionMini } from '@/component/nav-section';
 //
 import navConfig from './config-navigation';
 import NavToggleButton from './NavToggleButton';

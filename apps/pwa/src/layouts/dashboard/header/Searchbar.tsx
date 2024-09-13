@@ -16,12 +16,12 @@ import {
 } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
-import flattenArray from '../../../utils/flattenArray';
+import flattenArray from '@/utils/flattenArray';
 // components
-import Iconify from '../../../components/iconify';
-import { NavListProps } from '../../../components/nav-section';
-import { IconButtonAnimate } from '../../../components/animate';
-import SearchNotFound from '../../../components/search-not-found';
+import Iconify from '@/component/iconify';
+import { NavListProps } from '@/component/nav-section';
+import { IconButtonAnimate } from '@/component/animate';
+import SearchNotFound from '@/component/search-not-found';
 //
 import NavConfig from '../nav/config-navigation';
 
@@ -165,7 +165,7 @@ function Searchbar() {
               disableClearable
               popupIcon={null}
               PopperComponent={StyledPopper}
-              onInputChange={(event, value) => setSearchQuery(value)}
+              onInputChange={(_event, value) => setSearchQuery(value)}
               noOptionsText={<SearchNotFound query={searchQuery} sx={{ py: 10 }} />}
               options={allItems.sort((a, b) => -b.group.localeCompare(a.group))}
               groupBy={(option) => option.group}

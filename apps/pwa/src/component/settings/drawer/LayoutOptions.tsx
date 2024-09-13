@@ -1,8 +1,8 @@
 // @mui
 import { RadioGroup } from '@mui/material';
 //
-import { useSettingsContext } from '../SettingsContext';
-import { StyledCard, StyledWrap, MaskControl, LayoutIcon } from '../styles';
+import { useSettingsContext } from '@/component/settings/settingContext';
+import { LayoutIcon, StyledCard, StyledWrap, MaskControl } from '@/component/settings/styles';
 
 // ----------------------------------------------------------------------
 
