@@ -5,8 +5,9 @@ import {
   httpLink,
   loggerLink,
   splitLink,
+  unstable_httpBatchStreamLink,
 } from "@trpc/react-query";
-import { ApiRouter } from "../../../api/src/router.trpc";
+import { ApiRouter, RouterOutputs } from "../../../api/src/router.trpc";
 
 export const trpc = createTRPCReact<ApiRouter>({
   abortOnUnmount: true,
@@ -36,6 +37,14 @@ export const queryClient = new QueryClient({
 
 export const trpcClient = trpc.createClient({
   links: [
+    unstable_httpBatchStreamLink({
+      fetch: (url, options) =>
+        fetch(url, {
+          ...options,
+          credentials: "include",
+        }),
+      url,
+    }),
     loggerLink(),
     // customLink,
     splitLink({
@@ -64,3 +73,6 @@ export const trpcClient = trpc.createClient({
     }),
   ],
 });
+
+export type UserType = RouterOutputs["me"]["userData"];
+export type ApiRouterOutputs = RouterOutputs;

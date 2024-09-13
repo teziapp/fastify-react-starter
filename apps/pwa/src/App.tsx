@@ -1,14 +1,25 @@
-import { Helmet } from "react-helmet-async";
-import { App as AntdApp } from "antd";
-import AntdConfig from "./theme/antd";
-import GlobalDrawer from "./components/globalDrawer/GlobalDrawer";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./router";
-import { MotionLazy } from "./components/animate/motion-lazy";
+// scroll bar
+import 'simplebar/src/simplebar.css';
+// lazy image
+import 'react-lazy-load-image-component/src/effects/blur.css';
+// ----------------------------------------------------------------------
+
+import { BrowserRouter } from 'react-router-dom';
 import { clarity } from 'react-microsoft-clarity';
 import { useEffect } from 'react';
 import { PostHogProvider } from 'posthog-js/react'
-import { APP_FAVICON, CLARITY_ID, META_DESCRIPTION, META_TITLE } from "./appConfig";
+import { CLARITY_ID } from "./app-config";
+import { AuthProvider } from "@/auth/AuthProvider";
+import { HelmetProvider } from "react-helmet-async";
+import { trpc, trpcClient, queryClient } from "./trpc/trpc";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SettingsProvider } from "@/component/settings/settingContext";
+import ScrollToTop from '@/component/ScrollToTop';
+import { MotionLazyContainer } from '@/component/animate';
+import ThemeProvider from '@/theme';
+import SnackbarProvider from '@/component/snackbar/SnackbarProvider';
+import Router from '@/routes';
 
 // Add these constants for PostHog configuration
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
@@ -20,25 +31,28 @@ export const App = () => {
   }, []);
 
   return (
-    <PostHogProvider 
-      apiKey={POSTHOG_KEY}
-      options={{
-        api_host: POSTHOG_HOST,
-      }}
-    >
-      <AntdConfig>
-        <AntdApp>
-          <MotionLazy>
-            <Helmet>
-            <title>{META_TITLE}</title>
-            <meta name="description" content={META_DESCRIPTION} />
-            <link rel="icon" href={APP_FAVICON} />
-            </Helmet>
-            <GlobalDrawer />
-            <RouterProvider router={router} />
-          </MotionLazy>
-        </AntdApp>
-      </AntdConfig>
-    </PostHogProvider>
+    <AuthProvider>
+      <HelmetProvider>
+        <SettingsProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <MotionLazyContainer>
+              <ThemeProvider>
+                <SnackbarProvider>
+                  <trpc.Provider client={trpcClient} queryClient={queryClient}>
+                    <QueryClientProvider client={queryClient}>
+                      <ReactQueryDevtools initialIsOpen={false} />
+                      <PostHogProvider apiKey={POSTHOG_KEY} options={{ api_host: POSTHOG_HOST }}>
+                        <Router />
+                      </PostHogProvider>
+                    </QueryClientProvider>
+                  </trpc.Provider>
+                </SnackbarProvider>
+              </ThemeProvider>
+            </MotionLazyContainer>
+          </BrowserRouter>
+        </SettingsProvider>
+      </HelmetProvider>
+    </AuthProvider>
   );
 };
