@@ -1,5 +1,6 @@
 import { env } from "../configs/env.config"
 import { protectedProcedure, publicProcedure, router } from "../context.trpc"
+import { db } from "../db/db.config"
 import { USER_TOKEN } from "./cookies"
 
 export const authApi = router({
@@ -14,7 +15,16 @@ export const authApi = router({
 		return
 	}),
 	profile: protectedProcedure.query(async ({ ctx }) => {
-    const user = ctx.user;
-    return user;
-  }),
+		const user = await db.user
+			.select(
+				"id",
+				"name",
+				"email",
+				"isVerified",
+				"profilePicture",
+				"lastLoginAt"
+			)
+			.find(ctx.user?.id);
+		return { user };
+	}),
 })
