@@ -15,7 +15,6 @@ import { useSettingsContext } from '@/component/settings/settingContext';
 //
 import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
-import ContactsPopover from './ContactsPopover';
 import NotificationsPopover from './NotificationsPopover';
 
 // ----------------------------------------------------------------------
@@ -58,8 +57,6 @@ export default function Header({ onOpenNav }: Props) {
       >
 
         <NotificationsPopover />
-
-        <ContactsPopover />
 
         <AccountPopover />
       </Stack>

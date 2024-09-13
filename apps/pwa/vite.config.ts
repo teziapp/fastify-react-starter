@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import reactSWC from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { RegisterSWData, VitePWA, VitePWAOptions } from "vite-plugin-pwa";
+import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
 const manifestForPlugIn:Partial<VitePWAOptions> = {
   devOptions: {
