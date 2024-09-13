@@ -15,6 +15,7 @@ export const app = fastify({
   logger: logsConfig[env.ENVIRONMENT],
   // maxParamLength: 5000,
 });
+export const logger = app.log;
 
 // Declare a route
 app.get("/", function (_, reply) {

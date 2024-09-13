@@ -5,8 +5,8 @@ export class UserTable extends BaseTable {
   readonly table = "user";
   columns = this.setColumns((t) => ({
     id: t.uuid().primaryKey().default(t.sql`gen_random_uuid()`),
-    name: t.string().trim().nullable(),
-    email: t.string().trim().unique().nullable(),
+    name: t.string().trim(),
+    email: t.string().trim().unique(),
     isVerified: t.boolean().default(false),
     profilePicture: t.string().nullable(),
     lastLoginAt: t.timestamp().nullable(),

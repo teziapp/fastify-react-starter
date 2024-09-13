@@ -1,6 +1,7 @@
 import { rakeDb } from "orchid-orm/migrations";
 import { env, isTest } from "../configs/env.config";
 import { BaseTable } from "./tables/baseTable";
+import { seed } from "./seed";
 
 const allDatabases = [
   {
@@ -18,10 +19,10 @@ export const change = rakeDb(allDatabases, {
   dbPath: "./db.config",
   migrationId: "serial",
   migrationsPath: "./migrations",
-  // commands: {
-  // 	async seed() {
-  // 		await seed();
-  // 	},
-  // },
+  commands: {
+  	async seed() {
+  		await seed();
+  	},
+  },
   import: (path) => import(path),
 });
