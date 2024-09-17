@@ -1,10 +1,15 @@
-// @mui
-import { Typography, Stack } from '@mui/material';
+import Image from "@/component/image";
 // components
-import Logo from '@/component/logo';
-import Image from '@/component/image';
+import Logo from "@/component/logo";
+// @mui
+import { Stack, Typography } from "@mui/material";
 //
-import { StyledRoot, StyledSectionBg, StyledSection, StyledContent } from './styles';
+import {
+  StyledContent,
+  StyledRoot,
+  StyledSection,
+  StyledSectionBg,
+} from "./styles";
 
 // ----------------------------------------------------------------------
 
@@ -20,22 +25,27 @@ export default function LoginLayout({ children, illustration, title }: Props) {
       <Logo
         sx={{
           zIndex: 9,
-          position: 'absolute',
+          position: "absolute",
           mt: { xs: 1.5, md: 5 },
           ml: { xs: 2, md: 5 },
         }}
       />
 
       <StyledSection>
-        <Typography variant="h3" sx={{ mb: 10, maxWidth: 480, textAlign: 'center' }}>
-          {title || 'Hi, Welcome back'}
+        <Typography
+          variant="h3"
+          sx={{ mb: 10, maxWidth: 480, textAlign: "center" }}
+        >
+          {title || "Hi, Welcome back"}
         </Typography>
 
         <Image
           disabledEffect
           visibleByDefault
           alt="auth"
-          src={illustration || '/assets/illustrations/illustration_dashboard.png'}
+          src={
+            illustration || "/assets/illustrations/illustration_dashboard.png"
+          }
           sx={{ maxWidth: 720 }}
         />
 
@@ -43,7 +53,7 @@ export default function LoginLayout({ children, illustration, title }: Props) {
       </StyledSection>
 
       <StyledContent>
-        <Stack sx={{ width: 1 }}> {children} </Stack>
+        <Stack sx={{ width: 1, height: 1 }}> {children} </Stack>
       </StyledContent>
     </StyledRoot>
   );

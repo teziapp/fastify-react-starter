@@ -1,10 +1,10 @@
-import { useState, ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useState, ReactNode } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 // components
-import LoadingScreen from '@/component/loading-screen';
+import LoadingScreen from "@/component/loading-screen";
 //
-import Login from '@/pages/auth/login';
-import { useAuthContext } from './useAuthContext';
+import { Login } from "@/pages/auth/login";
+import { useAuthContext } from "./useAuthContext";
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +18,9 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   const { pathname } = useLocation();
 
   // basically this is used to redirect to the page after login
-  const [requestedLocation, setRequestedLocation] = useState<string | null>(null);
+  const [requestedLocation, setRequestedLocation] = useState<string | null>(
+    null
+  );
 
   if (!isInitialized) {
     return <LoadingScreen />;

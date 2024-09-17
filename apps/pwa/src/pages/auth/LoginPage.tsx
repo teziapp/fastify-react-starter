@@ -1,5 +1,5 @@
-import Login from '@/pages/auth/login';
-import { Helmet } from 'react-helmet-async';
+import { Login } from "@/pages/auth/login";
+import { Helmet } from "react-helmet-async";
 // sections
 
 // ----------------------------------------------------------------------

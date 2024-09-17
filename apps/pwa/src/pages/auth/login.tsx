@@ -1,42 +1,84 @@
 // @mui
-import { Alert, Tooltip, Stack, Typography, Link, Box } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 // layouts
-import LoginLayout from '../../layouts/login';
+import LoginLayout from "../../layouts/login";
 //
-import AuthWithSocial from './AuthWithSocial';
+import { AuthWithSocial } from "./AuthWithSocial";
 
 // ----------------------------------------------------------------------
 
-export default function Login() {
-
+export const Login = () => {
   return (
-    <LoginLayout>
-      <Stack spacing={2} sx={{ mb: 5, position: 'relative' }}>
+    <LoginLayout title="Login">
+      <Stack spacing={2} sx={{ mb: 5 }}>
         <Typography variant="h4">Sign in to Fastify-React-Starter</Typography>
 
         <Stack direction="row" spacing={0.5}>
           <Typography variant="body2">New user?</Typography>
-
           <Link variant="subtitle2">Create an account</Link>
         </Stack>
-
-        <Tooltip title={"Login with Google"} placement="left">
-          <Box
-            component="img"
-            alt={"Login with Google"}
-            src={`/assets/icons/auth/ic_jwt.png`}
-            sx={{ width: 32, height: 32, position: 'absolute', right: 0 }}
-          />
-        </Tooltip>
       </Stack>
 
       <Alert severity="info" sx={{ mb: 3 }}>
         This is Sample Alert
       </Alert>
-
-      {/* <AuthLoginForm /> */}
-
+      <Card
+        sx={{
+          p: 3,
+          mb: 3,
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h5" sx={{ width: "100%" }}>
+          Login with Email
+        </Typography>
+        <TextField
+          label="Email"
+          variant="outlined"
+          defaultValue="demo@gmail.com"
+          size="small"
+          sx={{ width: "100%" }}
+        />
+        <TextField
+          label="Password"
+          size="small"
+          defaultValue="demodemodemo"
+          type="password"
+          sx={{ width: "100%" }}
+        />
+        <Stack
+          direction="column"
+          justifyContent="end"
+          alignItems="end"
+          sx={{ width: "100%", gap: 2 }}
+        >
+          <Box
+            component="span"
+            sx={{ display: "flex", alignItems: "center", gap: 1 }}
+          >
+            <Link variant="caption">Reset password</Link>
+          </Box>
+          <Box component="span" sx={{ width: "100%" }}>
+            <Button variant="contained" sx={{ width: "100%" }}>
+              Login
+            </Button>
+          </Box>
+        </Stack>
+      </Card>
       <AuthWithSocial />
     </LoginLayout>
   );
-}
+};
