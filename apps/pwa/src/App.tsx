@@ -20,6 +20,7 @@ import ThemeProvider from '@/theme';
 import SnackbarProvider from '@/component/snackbar/SnackbarProvider';
 import Router from '@/routes';
 import ThemeSettings from '@/component/settings/ThemeSettings';
+import ServiceWorkerUpdateDialog from './component/ServiceWorkerUpdate';
 
 // Add these constants for PostHog configuration
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
@@ -45,6 +46,7 @@ export const App = () => {
                         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
                         <PostHogProvider apiKey={POSTHOG_KEY} options={{ api_host: POSTHOG_HOST }}>
                           <Router />
+                          <ServiceWorkerUpdateDialog />
                         </PostHogProvider>
                       </SnackbarProvider>
                     </ThemeProvider>
