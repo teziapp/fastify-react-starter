@@ -16,6 +16,10 @@ export function addSubscription(subscription: PushSubscription) {
   pushSubscriptions.add(subscription);
 }
 
+export function removeSubscription(subscription: PushSubscription) {
+  pushSubscriptions.delete(subscription);
+}
+
 export async function sendNotificationToAll(title: string, body: string) {
   for (const subscription of pushSubscriptions) {
     try {

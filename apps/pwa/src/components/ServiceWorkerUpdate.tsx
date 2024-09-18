@@ -21,6 +21,9 @@ export const handleNotificationSubscription = async (subscribe: boolean): Promis
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
         await subscribeToPushNotifications();
+        await navigator.serviceWorker.ready.then(async registration => {
+          return await registration.pushManager.getSubscription();
+        });
         return true;
       } else {
         console.log('Notification permission denied');
@@ -93,10 +96,7 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
     }
   }, []);
 
-  const handleUpdate = () => {
-    console.log("force update");
-  
-    // Force the new service worker to activate
+  const handleUpdate = () => {  
     updateSWFunction(true);  // This triggers the installation of the new SW
   
     navigator.serviceWorker.getRegistration().then((registration) => {
@@ -115,8 +115,6 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
   
     setUpdateAvailable(false);  // Close the modal
   };
-  
-  
 
   const handleClose = useCallback(() => {
     setUpdateAvailable(false);

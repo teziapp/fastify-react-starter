@@ -37,7 +37,7 @@ self.addEventListener('push', (event: PushEvent) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification(notification.title, notification)
+    self.registration.showNotification(data.title, notification)
       .then(() => console.log('Notification shown'))
       .catch(error => console.error('Error showing notification:', error))
   );

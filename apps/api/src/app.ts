@@ -12,8 +12,13 @@ import { ApiRouter, trpcRouter } from "./router.trpc";
 import { googleAuth } from "./auth/google-auth";
 import webpush from 'web-push';
 import { PushSubscription } from 'web-push';
-import { addSubscription, scheduleFrequentNotification } from './controllers/pushNotifications';
+import { addSubscription, removeSubscription, scheduleFrequentNotification } from './controllers/pushNotifications';
 
+function isSubscriptionActive(subscription: PushSubscription): boolean {
+  return Array.from(pushSubscriptions).some(
+    sub => sub.endpoint === subscription.endpoint
+  );
+}
 
 export const app = fastify({
   logger: logsConfig[env.ENVIRONMENT],
@@ -22,7 +27,7 @@ export const app = fastify({
 
 // Declare a route
 app.get("/", function (_, reply) {
-  reply.send("Hello World!");
+  reply.send("Fastify is running");
 });
 
 // Fastify level centralized error handling
@@ -53,8 +58,22 @@ const pushSubscriptions = new Set<PushSubscription>();
 // Add push subscription
 app.post('/subscribe', async (request, reply) => {
   const subscription = request.body as PushSubscription;
-  addSubscription(subscription);
-  scheduleFrequentNotification();
+  
+  if (isSubscriptionActive(subscription)) {
+    reply.send({ success: false, message: 'Subscription already active' });
+  } else {
+    addSubscription(subscription);
+    scheduleFrequentNotification();
+    reply.send({ success: true });
+  }
+});
+
+// Unsubscribe from push notifications
+app.post<{
+  Body: PushSubscription
+}>('/unsubscribe', async (request, reply) => {
+  const subscription = request.body;
+  removeSubscription(subscription);
   reply.send({ success: true });
 });
 
