@@ -30,12 +30,9 @@
       },
       "nursery": {
         "noDuplicateJsonKeys": "error",
-        "noFlatMapIdentity": "error",
-        "useArrayLiterals": "error",
         "useConsistentBuiltinInstantiation": "error",
-        "useDefaultSwitchClause": "error",
-        "noConstantMathMinMaxClamp": "error"
-      },
+        "useDefaultSwitchClause": "error"
+        },
       "style": {
         "noDefaultExport": "error",
         "noNamespace": "error",

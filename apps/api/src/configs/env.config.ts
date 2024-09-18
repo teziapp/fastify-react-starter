@@ -14,6 +14,9 @@ const envDefaultFields = z
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     VAPID_PUBLIC_KEY: z.string().min(1),
     VAPID_PRIVATE_KEY: z.string().min(1),
+    // for storing the logs which are sent to axiom
+    AXIOM_DATASET: z.string().optional(),
+    AXIOM_TOKEN: z.string().optional(),
   })
   .refine((env) => {
     if (env.ENVIRONMENT === "prod" && env.DB_TEST_URL) {

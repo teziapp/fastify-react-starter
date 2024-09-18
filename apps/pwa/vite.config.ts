@@ -68,9 +68,9 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
     "masked-icon.svg"
   ],
   manifest: {
-    short_name: "Zeon",
-    name: "Zeon",
-    description: "Zeon is a platform for content creators to manage their content and monetize it.",    
+    short_name: "Boilerplate",
+    name: "Boilerplate",
+    description: "React-fastify boilerplate",
     icons: [
       {
         src: "favicon.ico",
