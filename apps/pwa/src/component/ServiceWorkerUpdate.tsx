@@ -9,10 +9,9 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
-  // Static update function
+  // // Static update function
   const updateSWFunction = registerSW({
     onNeedRefresh() {
-      console.log("onNeedRefresh called");
       setUpdateAvailable(true);
     },
     onOfflineReady() {
@@ -94,7 +93,6 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
         <Button onClick={handleUpdate} variant="contained" color="primary">
           Update
         </Button>
