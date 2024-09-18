@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 dev-dist
+
+vite.config.ts*
