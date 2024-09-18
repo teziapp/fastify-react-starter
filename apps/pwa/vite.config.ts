@@ -15,10 +15,22 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
   registerType: 'prompt',
   workbox: {
     globPatterns: ["**/*.{js,jsx,css,html,ico,png,svg,ts,tsx}"],
+    maximumFileSizeToCacheInBytes: 10000000,
+    // Enable sourcemaps for the service worker. This allows for easier debugging of the service worker code. by mapping the compiled code back to the original source
+    sourcemap: true,
     runtimeCaching: [
       {
-        urlPattern: ({ request }: { request: Request }) => request.destination === "image",
-        handler: "StaleWhileRevalidate",
+        urlPattern: ({ request }: { request: Request }) => 
+          request.destination === "image" || 
+          /\.(?:png|gif|jpg|jpeg|svg)$/.test(request.url),
+        handler: "CacheFirst",
+        options: {
+          cacheName: "images",
+          expiration: {
+            maxEntries: 60,
+            maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+          }
+        }
       },
       {
         urlPattern: /\.(?:woff|woff2)$/,
@@ -33,24 +45,32 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
             statuses: [0, 200]
           }
         }
-      },
-      {
-        urlPattern: /\.(?:png|gif|jpg|jpeg|svg)$/,
-        handler: 'CacheFirst',
-        options: {
-          cacheName: 'images',
-          expiration: {
-            maxEntries: 60,
-            maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
-          }
-        }
-      }
+      }      
     ],
   },
+  includeAssets: [
+    "/favicon.ico",
+    "/favicon/apple-touch-icon.png",
+    "/favicon/favicon-32x32.png",
+    "/favicon/favicon-16x16.png",
+    "/favicon/android-chrome-192x192.png",
+    "/favicon/android-chrome-512x512.png",
+    "/screenshots/screenshot-1.png",
+    "/screenshots/screenshot-2.png",
+    "/screenshots/screenshot-3.png",
+    "/screenshots/screenshot-4.png",
+    "/screenshots/screenshot-5.png",
+    "/screenshots/screenshot-6.png",
+    "/screenshots/screenshot-7.jpeg",
+    "/screenshots/screenshot-8.jpeg",
+    "/screenshots/screenshot-9.jpeg",
+    "/screenshots/screenshot-10.jpeg",
+    "masked-icon.svg"
+  ],
   manifest: {
     short_name: "Zeon",
     name: "Zeon",
-    description: "Zeon is a platform for content creators to manage their content and monetize it.",
+    description: "Zeon is a platform for content creators to manage their content and monetize it.",    
     icons: [
       {
         src: "favicon.ico",
@@ -78,11 +98,84 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
         sizes: "512x512",
       },
     ],
-    start_url: "/",
+    start_url: '/',
+    lang: 'en',
+    dir: 'ltr',
+    scope: '/',
     display: "standalone",
     theme_color: "#5296d9",
     orientation: "any",
-    categories: ["business", "productivity", "content", "curation"],
+    screenshots: [
+      {
+        src: "/screenshots/screenshot-1.png",
+        type: "image/png",
+        sizes: "1280x720",
+        form_factor: "wide",
+        platform: "windows",
+      },
+      {
+        src: "/screenshots/screenshot-2.png",
+        type: "image/png",
+        sizes: "1280x720",
+        form_factor: "wide",
+        platform: "windows",
+      },
+      {
+        src: "/screenshots/screenshot-3.png",
+        type: "image/png",
+        sizes: "1280x720",
+        platform: "windows",
+      },
+      {
+        src: "/screenshots/screenshot-4.png",
+        type: "image/png",
+        sizes: "1280x720",
+        platform: "windows",
+      },
+      {
+        src: "/screenshots/screenshot-4.png",
+        type: "image/png",
+        sizes: "1280x720",
+        platform: "windows",
+      },
+      {
+        src: "/screenshots/screenshot-5.png",
+        type: "image/png",
+        sizes: "1280x720",
+        platform: "windows",
+      },
+      {
+        src: "/screenshots/screenshot-6.png",
+        type: "image/png",
+        sizes: "1280x720",
+        platform: "windows",
+      },
+      {
+        src: "/screenshots/screenshot-7.jpeg",
+        type: "image/jpeg",
+        sizes: "1080x2400",
+        platform: "android",
+      },
+      {
+        src: "/screenshots/screenshot-8.jpeg",
+        type: "image/jpeg",
+        sizes: "1080x2400",
+        platform: "android",
+      },
+      {
+        src: "/screenshots/screenshot-9.jpeg",
+        type: "image/jpeg",
+        sizes: "1080x2400",
+        platform: "android",
+      },
+      {
+        src: "/screenshots/screenshot-10.jpeg",
+        type: "image/jpeg",
+        sizes: "1080x2400",
+        platform: "android",
+      },
+    ],	
+    categories: ["business", "productivity", "boilerplate"],
     background_color: "#ffffff",
     share_target: {
       action: "/share-target/",
@@ -99,9 +192,30 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
           }
         ]
       }
-    }
+    },
+    shortcuts: [
+      {
+        name: "New voucher",
+        description: "Create a new voucher",
+        url: "/voucher/add-new",
+        icons: [
+          {
+            src: "/icons/ic_cart.svg",			
+          }
+        ],						
+      },
+      {
+        name: "Outstanding List",
+        description: "Create a new order",
+        url: "/order/add-new",
+        icons: [
+          {
+            src: "/icons/ic_cart.svg",			
+          }
+        ],						
+      }
+    ],
   },
-  includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
   strategies: 'injectManifest',  // Use injectManifest strategy
   srcDir: 'src',  // Point to the source directory
   filename: 'sw.ts',  // Custom service worker filename
