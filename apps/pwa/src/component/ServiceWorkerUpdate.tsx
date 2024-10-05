@@ -1,13 +1,12 @@
 /// <reference types="vite-plugin-pwa/client" />
-import React, { useState, useEffect, useCallback } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Box, Switch, FormControlLabel } from "@mui/material";
+import React, { useState, useCallback } from "react";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Box} from "@mui/material";
 import { registerSW } from "virtual:pwa-register";
 import { toast } from 'react-toastify';
-import { handleNotificationToggle } from "@/utils/handleNotification";
+import { NotificationToggle } from "./settings/drawer/NotificationToggle";
 
 const ServiceWorkerUpdateDialog: React.FC = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   // // Static update function
   const updateSWFunction = registerSW({
@@ -18,28 +17,6 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
       toast.success('App is ready for offline use');
     },
   });
-
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.ready.then(async registration => {
-        const subscription = await registration.pushManager.getSubscription();
-        if (subscription) {
-          setNotificationsEnabled(true);
-        }
-
-        navigator.serviceWorker.addEventListener('message', (event) => {
-          if (event.data && event.data.type === 'PUSH_RECEIVED') {
-            if ('Notification' in window && Notification.permission === 'granted') {
-              new Notification(event.data.notification.title, {
-                body: event.data.notification.body,
-                icon: event.data.notification.badge,
-              });
-            }
-          }
-        });
-      });
-    }
-  }, []);
 
   const handleUpdate = () => {  
     updateSWFunction(true);  // This triggers the installation of the new SW
@@ -82,15 +59,7 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
             <li>Feature Improvements</li>
           </ul>
         </Box>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={notificationsEnabled}
-              onChange={(event) => handleNotificationToggle(event.target.checked, setNotificationsEnabled)}
-            />
-          }
-          label="Enable Notifications"
-        />
+        <NotificationToggle />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleUpdate} variant="contained" color="primary">

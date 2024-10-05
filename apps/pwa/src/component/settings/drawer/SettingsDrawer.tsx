@@ -21,6 +21,7 @@ import DirectionOptions from './DirectionOptions';
 import FullScreenOptions from './FullScreenOptions';
 import ColorPresetsOptions from './ColorPresetsOptions';
 import { useSettingsContext } from '@/component/settings/settingContext';
+import { NotificationToggle } from './NotificationToggle';
 
 // ----------------------------------------------------------------------
 
@@ -120,6 +121,10 @@ export default function SettingsDrawer() {
 
           <Block title="Presets">
             <ColorPresetsOptions />
+          </Block>
+
+          <Block title="Notifications">
+            <NotificationToggle />
           </Block>
         </Scrollbar>
 

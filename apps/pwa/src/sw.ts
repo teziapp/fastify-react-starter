@@ -2,7 +2,7 @@
 import { precacheAndRoute } from 'workbox-precaching'
 
 declare let self: ServiceWorkerGlobalScope & typeof globalThis & { __WB_MANIFEST: any };
-console.log("new service worker file")
+console.log("New service worker file");
 precacheAndRoute(self.__WB_MANIFEST);
 
 interface NotificationData {
@@ -24,6 +24,18 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
+
+// Function to check if notifications are already subscribed
+const checkNotificationSubscription = async (): Promise<boolean | undefined> => {
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+    return subscription ? true : false;
+  } catch (error) {
+    console.error('Error checking subscription:', error);
+    return undefined;
+  }
+};
 
 // Handle push notifications
 self.addEventListener('push', (event: PushEvent) => {
@@ -53,6 +65,14 @@ self.addEventListener('notificationclick', (event: NotificationEvent) => {
 
 export async function subscribeToPushNotifications(): Promise<void> {
   try {
+    // Check if there is already a subscription
+    const isSubscribed = await checkNotificationSubscription();
+    if (isSubscribed) {
+      console.log('Already subscribed to push notifications');
+      return;
+    }
+
+    // Proceed with subscription if not already subscribed
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
@@ -70,7 +90,7 @@ export async function subscribeToPushNotifications(): Promise<void> {
     if (!response.ok) {
       throw new Error('Failed to send subscription to server');
     }
-    
+
     console.log('Successfully subscribed to push notifications');
   } catch (error) {
     console.error('Failed to subscribe to push notifications:', error);
