@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 //
-import Main from './Main';
+import Main from './main';
 import Header from './header';
 import NavMini from './nav/NavMini';
 import NavVertical from './nav/NavVertical';

@@ -10,6 +10,15 @@ import { logsConfig } from "./configs/logger.config";
 import { trpcContext } from "./context.trpc";
 import { ApiRouter, trpcRouter } from "./router.trpc";
 import { googleAuth } from "./auth/google-auth";
+import webpush from 'web-push';
+import { PushSubscription } from 'web-push';
+import { addSubscription, removeSubscription, scheduleFrequentNotification } from './controllers/pushNotifications';
+
+function isSubscriptionActive(subscription: PushSubscription): boolean {
+  return Array.from(pushSubscriptions).some(
+    sub => sub.endpoint === subscription.endpoint
+  );
+}
 
 export const app = fastify({
   logger: logsConfig[env.ENVIRONMENT],
@@ -19,7 +28,7 @@ export const logger = app.log;
 
 // Declare a route
 app.get("/", function (_, reply) {
-  reply.send("Hello World!");
+  reply.send("Fastify is running");
 });
 
 // Fastify level centralized error handling
@@ -37,6 +46,55 @@ app.setErrorHandler(function (error, _request, reply) {
 
 app.register(cookiePlugin).register(fastifyJwt, { secret: env.JWT_SECRET as string }).register(googleAuth)
 
+// Configure web-push
+webpush.setVapidDetails(
+  'mailto:mohit@teziapp.com',
+  env.VAPID_PUBLIC_KEY,
+  env.VAPID_PRIVATE_KEY
+);
+
+// In-memory storage for subscriptions (replace with database in production)
+const pushSubscriptions = new Set<PushSubscription>();
+
+// Add push subscription
+app.post('/subscribe', async (request, reply) => {
+  const subscription = request.body as PushSubscription;
+  
+  if (isSubscriptionActive(subscription)) {
+    reply.send({ success: false, message: 'Subscription already active' });
+  } else {
+    addSubscription(subscription);
+    scheduleFrequentNotification();
+    reply.send({ success: true });
+  }
+});
+
+// Unsubscribe from push notifications
+app.post<{
+  Body: PushSubscription
+}>('/unsubscribe', async (request, reply) => {
+  const subscription = request.body;
+  removeSubscription(subscription);
+  reply.send({ success: true });
+});
+
+// Trigger push notification
+
+app.post<{
+  Body: { title: string; body: string }
+}>('/send-notification', async (request, reply) => {
+  const { title, body } = request.body;
+  for (const subscription of pushSubscriptions) {
+    try {
+      await webpush.sendNotification(subscription, JSON.stringify({ title, body }));
+    } catch (error) {
+      console.error('Error sending notification:', error);
+      pushSubscriptions.delete(subscription);
+    }
+  }
+  
+  reply.send({ success: true });
+});
 
 app.register(fastifyTRPCPlugin, {
   prefix: "/v1",
